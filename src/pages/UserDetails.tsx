@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { NavBar } from '@/components/NavBar';
@@ -9,7 +8,7 @@ import { Loader2, Mail, Globe, Phone, MapPin, Building, ArrowLeft } from 'lucide
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { toast } from '@/components/ui/sonner';
+import { toast } from "sonner";
 
 const UserDetails = () => {
   const { userId } = useParams<{ userId: string }>();

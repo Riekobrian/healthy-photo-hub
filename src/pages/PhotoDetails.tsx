@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { NavBar } from '@/components/NavBar';
@@ -8,7 +7,7 @@ import { Loader2, ArrowLeft, Save, Edit, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { toast } from '@/components/ui/sonner';
+import { toast } from "sonner";
 
 const PhotoDetails = () => {
   const { photoId } = useParams<{ photoId: string }>();

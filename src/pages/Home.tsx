@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavBar } from '@/components/NavBar';
@@ -7,7 +6,7 @@ import { usersApi, albumsApi, User, Album } from '@/services/api';
 import { useAuth } from '@/context/AuthContext';
 import { Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { toast } from '@/components/ui/sonner';
+import { toast } from "sonner";
 
 const Home = () => {
   const [users, setUsers] = useState<User[]>([]);

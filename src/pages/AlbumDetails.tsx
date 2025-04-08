@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { NavBar } from '@/components/NavBar';
@@ -8,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Loader2, ArrowLeft, Image, User as UserIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { toast } from '@/components/ui/sonner';
+import { toast } from "sonner";
 
 const AlbumDetails = () => {
   const { albumId } = useParams<{ albumId: string }>();
