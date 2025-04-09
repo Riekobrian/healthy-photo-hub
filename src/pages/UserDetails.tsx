@@ -1,13 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { NavBar } from '@/components/NavBar';
-import AlbumCard from '@/components/AlbumCard';
-import { usersApi, albumsApi, photosApi, User, Album, Photo } from '@/services/api';
-import { useAuth } from '@/context/AuthContext';
-import { Loader2, Mail, Globe, Phone, MapPin, Building, ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { NavBar } from "@/components/NavBar";
+import AlbumCard from "@/components/AlbumCard";
+import {
+  usersApi,
+  albumsApi,
+  photosApi,
+  User,
+  Album,
+  Photo,
+} from "@/services/api";
+import { useAuth } from "@/hooks/use-auth";
+import {
+  Loader2,
+  Mail,
+  Globe,
+  Phone,
+  MapPin,
+  Building,
+  ArrowLeft,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 
 const UserDetails = () => {
@@ -22,12 +37,12 @@ const UserDetails = () => {
   useEffect(() => {
     // Redirect if not authenticated
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
     if (!userId) {
-      navigate('/home');
+      navigate("/home");
       return;
     }
 
@@ -37,28 +52,31 @@ const UserDetails = () => {
         setIsLoading(true);
         const userData = await usersApi.getById(userId);
         const userAlbums = await albumsApi.getByUserId(userId);
-        
+
         setUser(userData);
         setAlbums(userAlbums);
-        
+
         // Fetch photos for each album
         const photosByAlbum: Record<number, Photo[]> = {};
-        
+
         await Promise.all(
           userAlbums.map(async (album) => {
             try {
               const albumPhotos = await photosApi.getByAlbumId(album.id);
               photosByAlbum[album.id] = albumPhotos;
             } catch (error) {
-              console.error(`Error fetching photos for album ${album.id}:`, error);
+              console.error(
+                `Error fetching photos for album ${album.id}:`,
+                error
+              );
             }
           })
         );
-        
+
         setPhotos(photosByAlbum);
       } catch (error) {
-        console.error('Error fetching user data:', error);
-        toast.error('Failed to load user information.');
+        console.error("Error fetching user data:", error);
+        toast.error("Failed to load user information.");
       } finally {
         setIsLoading(false);
       }
@@ -75,9 +93,9 @@ const UserDetails = () => {
   // Get initials for avatar
   const getInitials = (name: string) => {
     return name
-      .split(' ')
-      .map(part => part[0])
-      .join('')
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
       .toUpperCase()
       .substring(0, 2);
   };
@@ -85,7 +103,7 @@ const UserDetails = () => {
   return (
     <div className="min-h-screen flex flex-col bg-muted">
       <NavBar />
-      
+
       <main className="flex-grow container-custom py-8">
         <Link to="/home">
           <Button variant="ghost" className="mb-6 flex items-center gap-1">
@@ -93,7 +111,7 @@ const UserDetails = () => {
             <span>Back to Users</span>
           </Button>
         </Link>
-        
+
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -111,14 +129,20 @@ const UserDetails = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <CardTitle className="text-2xl md:text-3xl">{user.name}</CardTitle>
-                    <p className="text-primary-foreground opacity-90">@{user.username}</p>
+                    <CardTitle className="text-2xl md:text-3xl">
+                      {user.name}
+                    </CardTitle>
+                    <p className="text-primary-foreground opacity-90">
+                      @{user.username}
+                    </p>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="grid md:grid-cols-2 gap-6 p-6">
                 <div>
-                  <h3 className="text-lg font-medium mb-3">Contact Information</h3>
+                  <h3 className="text-lg font-medium mb-3">
+                    Contact Information
+                  </h3>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <Mail className="text-gray-500" size={18} />
@@ -138,7 +162,7 @@ const UserDetails = () => {
                     )}
                   </div>
                 </div>
-                
+
                 <div>
                   {user.address && (
                     <>
@@ -146,13 +170,17 @@ const UserDetails = () => {
                       <div className="flex items-start gap-2">
                         <MapPin className="text-gray-500 mt-1" size={18} />
                         <div>
-                          <p>{user.address.street}, {user.address.suite}</p>
-                          <p>{user.address.city}, {user.address.zipcode}</p>
+                          <p>
+                            {user.address.street}, {user.address.suite}
+                          </p>
+                          <p>
+                            {user.address.city}, {user.address.zipcode}
+                          </p>
                         </div>
                       </div>
                     </>
                   )}
-                  
+
                   {user.company && (
                     <div className="mt-6">
                       <h3 className="text-lg font-medium mb-3">Company</h3>
@@ -160,7 +188,9 @@ const UserDetails = () => {
                         <Building className="text-gray-500 mt-1" size={18} />
                         <div>
                           <p className="font-medium">{user.company.name}</p>
-                          <p className="text-sm text-gray-600">{user.company.catchPhrase}</p>
+                          <p className="text-sm text-gray-600">
+                            {user.company.catchPhrase}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -168,21 +198,25 @@ const UserDetails = () => {
                 </div>
               </CardContent>
             </Card>
-            
+
             {/* Albums Section */}
-            <h2 className="text-2xl font-bold mb-4">Albums ({albums.length})</h2>
-            
+            <h2 className="text-2xl font-bold mb-4">
+              Albums ({albums.length})
+            </h2>
+
             {albums.length === 0 ? (
               <div className="bg-white rounded-lg shadow p-8 text-center">
-                <p className="text-gray-600">This user doesn't have any albums yet.</p>
+                <p className="text-gray-600">
+                  This user doesn't have any albums yet.
+                </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {albums.map(album => (
-                  <AlbumCard 
-                    key={album.id} 
-                    album={album} 
-                    photoCount={getAlbumPhotoCount(album.id)} 
+                {albums.map((album) => (
+                  <AlbumCard
+                    key={album.id}
+                    album={album}
+                    photoCount={getAlbumPhotoCount(album.id)}
                   />
                 ))}
               </div>
@@ -190,19 +224,24 @@ const UserDetails = () => {
           </>
         ) : (
           <div className="text-center py-12 bg-white rounded-lg shadow">
-            <h3 className="text-xl font-medium text-gray-600">User not found</h3>
-            <p className="text-gray-500 mt-2">The user you're looking for doesn't exist or has been removed.</p>
-            <Button className="mt-4" onClick={() => navigate('/home')}>
+            <h3 className="text-xl font-medium text-gray-600">
+              User not found
+            </h3>
+            <p className="text-gray-500 mt-2">
+              The user you're looking for doesn't exist or has been removed.
+            </p>
+            <Button className="mt-4" onClick={() => navigate("/home")}>
               Return to Home
             </Button>
           </div>
         )}
       </main>
-      
+
       <footer className="bg-white shadow-md mt-auto">
         <div className="container-custom py-4">
           <p className="text-center text-gray-600 text-sm">
-            &copy; 2025 HealthyCare App - Savannah Informatics Frontend Assessment
+            &copy; 2025 HealthyCare App - Savannah Informatics Frontend
+            Assessment
           </p>
         </div>
       </footer>

@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { NavBar } from '@/components/NavBar';
-import PhotoCard from '@/components/PhotoCard';
-import { albumsApi, photosApi, usersApi, Album, Photo, User } from '@/services/api';
-import { useAuth } from '@/context/AuthContext';
-import { Loader2, ArrowLeft, Image, User as UserIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { NavBar } from "@/components/NavBar";
+import PhotoCard from "@/components/PhotoCard";
+import {
+  albumsApi,
+  photosApi,
+  usersApi,
+  Album,
+  Photo,
+  User,
+} from "@/services/api";
+import { useAuth } from "@/hooks/use-auth";
+import { Loader2, ArrowLeft, Image, User as UserIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 
 const AlbumDetails = () => {
@@ -21,12 +28,12 @@ const AlbumDetails = () => {
   useEffect(() => {
     // Redirect if not authenticated
     if (!isAuthenticated) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
     if (!albumId) {
-      navigate('/home');
+      navigate("/home");
       return;
     }
 
@@ -36,18 +43,18 @@ const AlbumDetails = () => {
         setIsLoading(true);
         const albumData = await albumsApi.getById(albumId);
         const photosData = await photosApi.getByAlbumId(albumId);
-        
+
         setAlbum(albumData);
         setPhotos(photosData);
-        
+
         // Get user info
         if (albumData.userId) {
           const userData = await usersApi.getById(albumData.userId);
           setUser(userData);
         }
       } catch (error) {
-        console.error('Error fetching album data:', error);
-        toast.error('Failed to load album information.');
+        console.error("Error fetching album data:", error);
+        toast.error("Failed to load album information.");
       } finally {
         setIsLoading(false);
       }
@@ -59,7 +66,7 @@ const AlbumDetails = () => {
   return (
     <div className="min-h-screen flex flex-col bg-muted">
       <NavBar />
-      
+
       <main className="flex-grow container-custom py-8">
         {user && (
           <Link to={`/users/${user.id}`}>
@@ -69,7 +76,7 @@ const AlbumDetails = () => {
             </Button>
           </Link>
         )}
-        
+
         {isLoading ? (
           <div className="flex justify-center items-center h-64">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -89,7 +96,10 @@ const AlbumDetails = () => {
                 <div className="flex items-center gap-2 text-gray-600">
                   <UserIcon size={18} />
                   {user ? (
-                    <Link to={`/users/${user.id}`} className="hover:text-primary hover:underline">
+                    <Link
+                      to={`/users/${user.id}`}
+                      className="hover:text-primary hover:underline"
+                    >
                       Created by {user.name}
                     </Link>
                   ) : (
@@ -97,21 +107,27 @@ const AlbumDetails = () => {
                   )}
                 </div>
                 <div className="mt-2">
-                  <p className="text-gray-600">This album contains {photos.length} photos</p>
+                  <p className="text-gray-600">
+                    This album contains {photos.length} photos
+                  </p>
                 </div>
               </CardContent>
             </Card>
-            
+
             {/* Photos Section */}
-            <h2 className="text-2xl font-bold mb-4">Photos ({photos.length})</h2>
-            
+            <h2 className="text-2xl font-bold mb-4">
+              Photos ({photos.length})
+            </h2>
+
             {photos.length === 0 ? (
               <div className="bg-white rounded-lg shadow p-8 text-center">
-                <p className="text-gray-600">This album doesn't have any photos yet.</p>
+                <p className="text-gray-600">
+                  This album doesn't have any photos yet.
+                </p>
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {photos.map(photo => (
+                {photos.map((photo) => (
                   <PhotoCard key={photo.id} photo={photo} />
                 ))}
               </div>
@@ -119,19 +135,24 @@ const AlbumDetails = () => {
           </>
         ) : (
           <div className="text-center py-12 bg-white rounded-lg shadow">
-            <h3 className="text-xl font-medium text-gray-600">Album not found</h3>
-            <p className="text-gray-500 mt-2">The album you're looking for doesn't exist or has been removed.</p>
-            <Button className="mt-4" onClick={() => navigate('/home')}>
+            <h3 className="text-xl font-medium text-gray-600">
+              Album not found
+            </h3>
+            <p className="text-gray-500 mt-2">
+              The album you're looking for doesn't exist or has been removed.
+            </p>
+            <Button className="mt-4" onClick={() => navigate("/home")}>
               Return to Home
             </Button>
           </div>
         )}
       </main>
-      
+
       <footer className="bg-white shadow-md mt-auto">
         <div className="container-custom py-4">
           <p className="text-center text-gray-600 text-sm">
-            &copy; 2025 HealthyCare App - Savannah Informatics Frontend Assessment
+            &copy; 2025 HealthyCare App - Savannah Informatics Frontend
+            Assessment
           </p>
         </div>
       </footer>

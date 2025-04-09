@@ -9,11 +9,17 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "noUnusedParameters": false,
     "skipLibCheck": true,
     "allowJs": true,
     "noUnusedLocals": false,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "types": ["jest", "@testing-library/jest-dom", "node"],
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "isolatedModules": true
   }
 }

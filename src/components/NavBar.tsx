@@ -1,10 +1,9 @@
-
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Home, User, LogOut, Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
+import { Button } from "@/components/ui/button";
+import { Home, User, LogOut, Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export const NavBar = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -20,7 +19,11 @@ export const NavBar = () => {
     <nav className="bg-white shadow-md">
       <div className="container-custom py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2" onClick={closeMenu}>
+          <Link
+            to="/"
+            className="flex items-center space-x-2"
+            onClick={closeMenu}
+          >
             <span className="text-primary text-xl font-bold">HealthyCare</span>
           </Link>
 
@@ -35,19 +38,19 @@ export const NavBar = () => {
           <div className="hidden md:flex items-center space-x-6">
             {isAuthenticated ? (
               <>
-                <Link 
-                  to="/home" 
+                <Link
+                  to="/home"
                   className={cn(
-                    "flex items-center space-x-1 hover:text-primary transition-colors", 
-                    isActive('/home') && "text-primary font-medium"
+                    "flex items-center space-x-1 hover:text-primary transition-colors",
+                    isActive("/home") && "text-primary font-medium"
                   )}
                 >
                   <Home size={18} />
                   <span>Home</span>
                 </Link>
-                <Button 
-                  variant="ghost" 
-                  className="flex items-center space-x-1 hover:text-primary transition-colors" 
+                <Button
+                  variant="ghost"
+                  className="flex items-center space-x-1 hover:text-primary transition-colors"
                   onClick={logout}
                 >
                   <LogOut size={18} />
@@ -56,11 +59,11 @@ export const NavBar = () => {
               </>
             ) : (
               <>
-                <Link 
-                  to="/" 
+                <Link
+                  to="/"
                   className={cn(
-                    "hover:text-primary transition-colors", 
-                    isActive('/') && "text-primary font-medium"
+                    "hover:text-primary transition-colors",
+                    isActive("/") && "text-primary font-medium"
                   )}
                 >
                   Home
@@ -80,20 +83,20 @@ export const NavBar = () => {
           <div className="flex flex-col space-y-4">
             {isAuthenticated ? (
               <>
-                <Link 
-                  to="/home" 
+                <Link
+                  to="/home"
                   className={cn(
-                    "flex items-center space-x-2 p-2 rounded-md hover:bg-muted transition-colors", 
-                    isActive('/home') && "bg-muted text-primary font-medium"
+                    "flex items-center space-x-2 p-2 rounded-md hover:bg-muted transition-colors",
+                    isActive("/home") && "bg-muted text-primary font-medium"
                   )}
                   onClick={closeMenu}
                 >
                   <Home size={18} />
                   <span>Home</span>
                 </Link>
-                <Button 
-                  variant="ghost" 
-                  className="flex items-center justify-start space-x-2 p-2 rounded-md hover:bg-muted transition-colors w-full" 
+                <Button
+                  variant="ghost"
+                  className="flex items-center justify-start space-x-2 p-2 rounded-md hover:bg-muted transition-colors w-full"
                   onClick={() => {
                     logout();
                     closeMenu();
@@ -105,18 +108,18 @@ export const NavBar = () => {
               </>
             ) : (
               <>
-                <Link 
-                  to="/" 
+                <Link
+                  to="/"
                   className={cn(
-                    "p-2 rounded-md hover:bg-muted transition-colors", 
-                    isActive('/') && "bg-muted text-primary font-medium"
+                    "p-2 rounded-md hover:bg-muted transition-colors",
+                    isActive("/") && "bg-muted text-primary font-medium"
                   )}
                   onClick={closeMenu}
                 >
                   Home
                 </Link>
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="p-2 rounded-md bg-primary text-white hover:bg-primary/90 transition-colors text-center"
                   onClick={closeMenu}
                 >
