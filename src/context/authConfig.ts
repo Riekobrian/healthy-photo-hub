@@ -19,7 +19,10 @@ declare global {
 
 // Helper function to get Vite env, only called outside tests
 const getViteEnv = (): ImportMetaEnv => {
-  if (typeof import.meta === "undefined" || typeof import.meta.env === "undefined") {
+  if (
+    typeof import.meta === "undefined" ||
+    typeof import.meta.env === "undefined"
+  ) {
     console.warn("import.meta.env not found, falling back to process.env");
     return {
       VITE_GITHUB_CLIENT_ID: process.env.VITE_GITHUB_CLIENT_ID || "",
@@ -39,9 +42,12 @@ const getViteEnv = (): ImportMetaEnv => {
 const getEnv = (): ImportMetaEnv => {
   if (process.env.NODE_ENV === "test") {
     return {
-      VITE_GITHUB_CLIENT_ID: process.env.VITE_GITHUB_CLIENT_ID || "test-github-id",
-      VITE_GOOGLE_CLIENT_ID: process.env.VITE_GOOGLE_CLIENT_ID || "test-google-id",
-      VITE_GOOGLE_CLIENT_SECRET: process.env.VITE_GOOGLE_CLIENT_SECRET || "test-google-secret",
+      VITE_GITHUB_CLIENT_ID:
+        process.env.VITE_GITHUB_CLIENT_ID || "test-github-id",
+      VITE_GOOGLE_CLIENT_ID:
+        process.env.VITE_GOOGLE_CLIENT_ID || "test-google-id",
+      VITE_GOOGLE_CLIENT_SECRET:
+        process.env.VITE_GOOGLE_CLIENT_SECRET || "test-google-secret",
       BASE_URL: "/",
       MODE: "test",
       DEV: true,
@@ -65,10 +71,10 @@ export const GOOGLE_CLIENT_SECRET = env.VITE_GOOGLE_CLIENT_SECRET;
 
 // Get the correct origin for OAuth redirects
 export const getRedirectOrigin = () => {
-  if (typeof window !== 'undefined') {
-    return process.env.NODE_ENV === 'production' 
-      ? 'https://nimble-blini-d1c847.netlify.app'
+  if (typeof window !== "undefined") {
+    return process.env.NODE_ENV === "production"
+      ? "https://nimble-blini-d1c847.netlify.app"
       : window.location.origin;
   }
-  return '';
+  return "";
 };

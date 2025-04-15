@@ -36,6 +36,22 @@ const handler: Handler = async (event) => {
       };
     }
 
+    // Use NETLIFY_ prefixed environment variables for Netlify Functions
+    const clientId =
+      process.env.NETLIFY_GITHUB_CLIENT_ID || process.env.VITE_GITHUB_CLIENT_ID;
+    const clientSecret =
+      process.env.NETLIFY_GITHUB_CLIENT_SECRET ||
+      process.env.VITE_GITHUB_CLIENT_SECRET;
+
+    if (!clientId || !clientSecret) {
+      console.error("Missing GitHub OAuth credentials");
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ error: "Server configuration error" }),
+      };
+    }
+
     const response = await fetch(
       "https://github.com/login/oauth/access_token",
       {
@@ -45,15 +61,19 @@ const handler: Handler = async (event) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          client_id: process.env.VITE_GITHUB_CLIENT_ID,
-          client_secret: process.env.VITE_GITHUB_CLIENT_SECRET,
+          client_id: clientId,
+          client_secret: clientSecret,
           code,
-          redirect_uri,
+          redirect_uri:
+            "https://nimble-blini-d1c847.netlify.app/.netlify/identity/callback",
         }),
       }
     );
 
     const data = await response.json();
+
+    // Log the response for debugging (will appear in Netlify Function logs)
+    console.log("GitHub OAuth response:", data);
 
     return {
       statusCode: 200,

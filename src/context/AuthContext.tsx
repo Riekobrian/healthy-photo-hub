@@ -91,7 +91,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setError(null);
 
       const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth`;
-      const redirectUri = `${getRedirectOrigin()}/login`;
+      const redirectUri = `${getRedirectOrigin()}/.netlify/identity/callback`;
 
       const params = new URLSearchParams({
         client_id: GOOGLE_CLIENT_ID,
@@ -117,7 +117,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setError(null);
 
       const githubAuthUrl = `https://github.com/login/oauth/authorize`;
-      const redirectUri = `${getRedirectOrigin()}/login`;
+      const redirectUri = `${getRedirectOrigin()}/.netlify/identity/callback`;
 
       const params = new URLSearchParams({
         client_id: GITHUB_CLIENT_ID,
@@ -148,7 +148,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           let userData;
 
           if (state === "google") {
-            const redirectUri = `${getRedirectOrigin()}/login`;
+            const redirectUri = `${getRedirectOrigin()}/.netlify/identity/callback`;
             const formData = new URLSearchParams();
             formData.append("code", code);
             formData.append("client_id", GOOGLE_CLIENT_ID);
@@ -200,7 +200,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                 },
                 body: JSON.stringify({
                   code,
-                  redirect_uri: `${getRedirectOrigin()}/login`,
+                  redirect_uri: `${getRedirectOrigin()}/.netlify/identity/callback`,
                 }),
               }
             );
