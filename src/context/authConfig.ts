@@ -71,8 +71,18 @@ const getEnv = (): ImportMetaEnv => {
 const currentEnv = getEnv();
 
 // OAuth Client IDs and Secrets
-// In a production environment, these should be environment variables
 export const GITHUB_CLIENT_ID = "3edd87d2dd3b6af23d90";
 export const GOOGLE_CLIENT_ID =
   "803617895928-5eg9n9etbi1ek8ak7380qemen75gtibv.apps.googleusercontent.com";
 export const GOOGLE_CLIENT_SECRET = "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";
+
+// Get the correct origin for OAuth redirects
+export const getRedirectOrigin = () => {
+  if (typeof window !== 'undefined') {
+    // Use Netlify URL in production, localhost in development
+    return process.env.NODE_ENV === 'production' 
+      ? 'https://nimble-blini-d1c847.netlify.app'
+      : window.location.origin;
+  }
+  return '';
+};

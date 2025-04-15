@@ -5,6 +5,7 @@ import {
   GITHUB_CLIENT_ID,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
+  getRedirectOrigin,
 } from "./authConfig";
 import { AuthContext } from "./AuthContextDefinition.test";
 
@@ -90,7 +91,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setError(null);
 
       const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth`;
-      const redirectUri = window.location.origin + "/login";
+      const redirectUri = `${getRedirectOrigin()}/login`;
 
       const params = new URLSearchParams({
         client_id: GOOGLE_CLIENT_ID,
@@ -114,7 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setError(null);
 
       const githubAuthUrl = `https://github.com/login/oauth/authorize`;
-      const redirectUri = window.location.origin + "/login";
+      const redirectUri = `${getRedirectOrigin()}/login`;
 
       const params = new URLSearchParams({
         client_id: GITHUB_CLIENT_ID,
@@ -157,7 +158,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                   code,
                   client_id: GOOGLE_CLIENT_ID,
                   client_secret: GOOGLE_CLIENT_SECRET,
-                  redirect_uri: window.location.origin + "/login",
+                  redirect_uri: `${getRedirectOrigin()}/login`,
                   grant_type: "authorization_code",
                 }),
               }
@@ -186,7 +187,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                 headers: {
                   "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ code }),
+                body: JSON.stringify({
+                  code,
+                  redirect_uri: `${getRedirectOrigin()}/login`,
+                }),
               }
             );
 
