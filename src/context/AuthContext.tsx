@@ -99,6 +99,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         response_type: "code",
         scope: "openid email profile",
         state: "google",
+        access_type: "offline",
+        prompt: "consent",
       });
 
       window.location.href = `${googleAuthUrl}?${params}`;
@@ -146,7 +148,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           let userData;
 
           if (state === "google") {
-            // Exchange code for tokens with Google
+            const redirectUri = `${getRedirectOrigin()}/login`;
+            const formData = new URLSearchParams();
+            formData.append("code", code);
+            formData.append("client_id", GOOGLE_CLIENT_ID);
+            formData.append("client_secret", GOOGLE_CLIENT_SECRET);
+            formData.append("redirect_uri", redirectUri);
+            formData.append("grant_type", "authorization_code");
+
             const tokenResponse = await fetch(
               "https://oauth2.googleapis.com/token",
               {
@@ -154,20 +163,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                 headers: {
                   "Content-Type": "application/x-www-form-urlencoded",
                 },
-                body: new URLSearchParams({
-                  code,
-                  client_id: GOOGLE_CLIENT_ID,
-                  client_secret: GOOGLE_CLIENT_SECRET,
-                  redirect_uri: `${getRedirectOrigin()}/login`,
-                  grant_type: "authorization_code",
-                }),
+                body: formData,
               }
             );
+
+            if (!tokenResponse.ok) {
+              const errorData = await tokenResponse.text();
+              throw new Error(`Token exchange failed: ${errorData}`);
+            }
 
             const tokenData = await tokenResponse.json();
 
             if (tokenData.access_token) {
-              // Fetch user data
               const userResponse = await fetch(
                 "https://www.googleapis.com/oauth2/v2/userinfo",
                 {
@@ -176,6 +183,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
                   },
                 }
               );
+
+              if (!userResponse.ok) {
+                throw new Error("Failed to fetch user data");
+              }
 
               userData = await userResponse.json();
             }
