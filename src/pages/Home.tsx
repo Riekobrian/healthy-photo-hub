@@ -2,52 +2,39 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavBar } from "@/components/NavBar";
 import UserCard from "@/components/UserCard";
-import { usersApi, albumsApi, User, Album } from "@/services/api";
+import { Album } from "@/services/api";
 import { useAuth } from "@/hooks/use-auth";
-import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
+import { LoadingContainer } from "@/components/ui/loading-container";
+import { useUsers, useAlbums } from "@/hooks/use-api-queries";
 
 const Home = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [albums, setAlbums] = useState<Album[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  const {
+    data: users = [],
+    isLoading: isLoadingUsers,
+    error: usersError,
+  } = useUsers();
+
+  const {
+    data: albums = [],
+    isLoading: isLoadingAlbums,
+    error: albumsError,
+  } = useAlbums();
 
   useEffect(() => {
     // Redirect if not authenticated
     if (!isAuthenticated) {
       navigate("/login");
-      return;
     }
-
-    // Fetch users and albums
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const [usersData, albumsData] = await Promise.all([
-          usersApi.getAll(),
-          albumsApi.getAll(),
-        ]);
-
-        setUsers(usersData);
-        setAlbums(albumsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        toast.error("Failed to load users and albums.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
   }, [isAuthenticated, navigate]);
 
   // Get album count for each user
   const getUserAlbumCount = (userId: number) => {
-    return albums.filter((album) => album.userId === userId).length;
+    return albums.filter((album: Album) => album.userId === userId).length;
   };
 
   // Filter users based on search term
@@ -57,6 +44,9 @@ const Home = () => {
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const isLoading = isLoadingUsers || isLoadingAlbums;
+  const error = usersError || albumsError;
 
   return (
     <div className="min-h-screen flex flex-col bg-muted">
@@ -82,9 +72,17 @@ const Home = () => {
         </div>
 
         {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <span className="ml-2 text-gray-600">Loading users...</span>
+          <LoadingContainer message="users" />
+        ) : error ? (
+          <div className="text-center py-12 bg-white rounded-lg shadow">
+            <h3 className="text-xl font-medium text-red-600">
+              Error loading data
+            </h3>
+            <p className="text-gray-500 mt-2">
+              {error instanceof Error
+                ? error.message
+                : "An error occurred while loading the data"}
+            </p>
           </div>
         ) : (
           <>
@@ -94,7 +92,7 @@ const Home = () => {
                   No users found
                 </h3>
                 <p className="text-gray-500 mt-2">
-                  Try a different search term
+                  Try adjusting your search criteria
                 </p>
               </div>
             ) : (

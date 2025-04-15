@@ -1,7 +1,7 @@
-
 import { toast } from "sonner";
+import { errorLogger, ErrorSeverity } from "./error-logging";
 
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
+const BASE_URL = "https://jsonplaceholder.typicode.com";
 
 export interface User {
   id: number;
@@ -18,7 +18,7 @@ export interface User {
     geo: {
       lat: string;
       lng: string;
-    }
+    };
   };
   company?: {
     name: string;
@@ -43,16 +43,16 @@ export interface Photo {
 
 // API request helper with error handling
 async function apiRequest<T>(
-  endpoint: string, 
-  method: string = 'GET', 
+  endpoint: string,
+  method: string = "GET",
   body?: object
 ): Promise<T> {
   try {
     const options: RequestInit = {
       method,
       headers: {
-        'Content-Type': 'application/json',
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     if (body) {
@@ -62,34 +62,57 @@ async function apiRequest<T>(
     const response = await fetch(`${BASE_URL}${endpoint}`, options);
 
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
+      const errorMessage = `API request failed: ${response.status}`;
+      errorLogger.log(errorMessage, ErrorSeverity.ERROR, {
+        endpoint,
+        method,
+        statusCode: response.status,
+        statusText: response.statusText,
+      });
+      throw new Error(errorMessage);
     }
 
-    return await response.json() as T;
+    const data = (await response.json()) as T;
+    errorLogger.log(`API request successful: ${endpoint}`, ErrorSeverity.INFO, {
+      endpoint,
+      method,
+    });
+    return data;
   } catch (error) {
-    toast.error(`API Error: ${(error as Error).message}`);
+    errorLogger.log(
+      `API Error: ${(error as Error).message}`,
+      ErrorSeverity.ERROR,
+      {
+        endpoint,
+        method,
+        error,
+      },
+      error
+    );
     throw error;
   }
 }
 
 // Users API
 export const usersApi = {
-  getAll: (): Promise<User[]> => apiRequest('/users'),
+  getAll: (): Promise<User[]> => apiRequest("/users"),
   getById: (id: number | string): Promise<User> => apiRequest(`/users/${id}`),
 };
 
 // Albums API
 export const albumsApi = {
-  getAll: (): Promise<Album[]> => apiRequest('/albums'),
+  getAll: (): Promise<Album[]> => apiRequest("/albums"),
   getById: (id: number | string): Promise<Album> => apiRequest(`/albums/${id}`),
-  getByUserId: (userId: number | string): Promise<Album[]> => apiRequest(`/users/${userId}/albums`),
+  getByUserId: (userId: number | string): Promise<Album[]> =>
+    apiRequest(`/users/${userId}/albums`),
 };
 
 // Photos API
 export const photosApi = {
-  getAll: (): Promise<Photo[]> => apiRequest('/photos'),
+  getAll: (): Promise<Photo[]> => apiRequest("/photos"),
   getById: (id: number | string): Promise<Photo> => apiRequest(`/photos/${id}`),
-  getByAlbumId: (albumId: number | string): Promise<Photo[]> => apiRequest(`/albums/${albumId}/photos`),
-  updateTitle: (id: number | string, title: string): Promise<Photo> => 
-    apiRequest(`/photos/${id}`, 'PATCH', { title }),
+  getByAlbumId: (albumId: number | string): Promise<Photo[]> =>
+    apiRequest(`/albums/${albumId}/photos`),
+  updateTitle: (id: number | string, title: string): Promise<Photo> =>
+    apiRequest(`/photos/${id}`, "PATCH", { title }),
 };

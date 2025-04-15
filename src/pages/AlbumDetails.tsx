@@ -1,67 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { NavBar } from "@/components/NavBar";
 import PhotoCard from "@/components/PhotoCard";
-import {
-  albumsApi,
-  photosApi,
-  usersApi,
-  Album,
-  Photo,
-  User,
-} from "@/services/api";
+import { photosApi } from "@/services/api";
 import { useAuth } from "@/hooks/use-auth";
-import { Loader2, ArrowLeft, Image, User as UserIcon } from "lucide-react";
+import { ArrowLeft, Image, User as UserIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { toast } from "sonner";
+import { LoadingContainer } from "@/components/ui/loading-container";
+import { useAlbumDetails, useUser } from "@/hooks/use-api-queries";
+import { useQuery } from "@tanstack/react-query";
 
 const AlbumDetails = () => {
   const { albumId } = useParams<{ albumId: string }>();
-  const [album, setAlbum] = useState<Album | null>(null);
-  const [photos, setPhotos] = useState<Photo[]>([]);
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Redirect if not authenticated
+  // Redirect if not authenticated
+  React.useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
-      return;
     }
+  }, [isAuthenticated, navigate]);
 
-    if (!albumId) {
-      navigate("/home");
-      return;
-    }
+  // Fetch album details
+  const {
+    data: album,
+    isLoading: isLoadingAlbum,
+    error: albumError,
+  } = useAlbumDetails(albumId!);
 
-    // Fetch album details and photos
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const albumData = await albumsApi.getById(albumId);
-        const photosData = await photosApi.getByAlbumId(albumId);
+  // Fetch user details once we have the album
+  const {
+    data: user,
+    isLoading: isLoadingUser,
+    error: userError,
+  } = useUser(album?.userId ?? "");
 
-        setAlbum(albumData);
-        setPhotos(photosData);
+  // Fetch photos for the album
+  const {
+    data: photos = [],
+    isLoading: isLoadingPhotos,
+    error: photosError,
+  } = useQuery({
+    queryKey: ["photos", albumId],
+    queryFn: () => photosApi.getByAlbumId(albumId!),
+    enabled: !!albumId,
+  });
 
-        // Get user info
-        if (albumData.userId) {
-          const userData = await usersApi.getById(albumData.userId);
-          setUser(userData);
-        }
-      } catch (error) {
-        console.error("Error fetching album data:", error);
-        toast.error("Failed to load album information.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const isLoading = isLoadingAlbum || isLoadingUser || isLoadingPhotos;
+  const error = albumError || userError || photosError;
 
-    fetchData();
-  }, [albumId, isAuthenticated, navigate]);
+  if (!albumId) {
+    navigate("/home");
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-muted">
@@ -78,9 +71,20 @@ const AlbumDetails = () => {
         )}
 
         {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <span className="ml-2 text-gray-600">Loading album details...</span>
+          <LoadingContainer message="albums" />
+        ) : error ? (
+          <div className="text-center py-12 bg-white rounded-lg shadow">
+            <h3 className="text-xl font-medium text-red-600">
+              Error loading album
+            </h3>
+            <p className="text-gray-500 mt-2">
+              {error instanceof Error
+                ? error.message
+                : "Failed to load album information"}
+            </p>
+            <Button className="mt-4" onClick={() => navigate("/home")}>
+              Return to Home
+            </Button>
           </div>
         ) : album ? (
           <>
@@ -91,38 +95,28 @@ const AlbumDetails = () => {
                   <Image size={24} />
                   <span>{album.title}</span>
                 </CardTitle>
+                {user && (
+                  <div className="flex items-center gap-2 text-white/90 mt-2">
+                    <UserIcon size={16} />
+                    <span>Created by {user.name}</span>
+                  </div>
+                )}
               </CardHeader>
               <CardContent className="p-6">
-                <div className="flex items-center gap-2 text-gray-600">
-                  <UserIcon size={18} />
-                  {user ? (
-                    <Link
-                      to={`/users/${user.id}`}
-                      className="hover:text-primary hover:underline"
-                    >
-                      Created by {user.name}
-                    </Link>
-                  ) : (
-                    <span>Unknown creator</span>
-                  )}
-                </div>
-                <div className="mt-2">
-                  <p className="text-gray-600">
-                    This album contains {photos.length} photos
-                  </p>
-                </div>
+                <p className="text-gray-600">
+                  This album contains {photos.length} photos
+                </p>
               </CardContent>
             </Card>
 
-            {/* Photos Section */}
-            <h2 className="text-2xl font-bold mb-4">
-              Photos ({photos.length})
-            </h2>
-
+            {/* Photos Grid */}
             {photos.length === 0 ? (
-              <div className="bg-white rounded-lg shadow p-8 text-center">
-                <p className="text-gray-600">
-                  This album doesn't have any photos yet.
+              <div className="text-center py-12 bg-white rounded-lg shadow">
+                <h3 className="text-xl font-medium text-gray-600">
+                  No photos in this album
+                </h3>
+                <p className="text-gray-500 mt-2">
+                  This album is currently empty.
                 </p>
               </div>
             ) : (

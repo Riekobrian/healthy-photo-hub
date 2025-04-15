@@ -2,7 +2,7 @@ import { Handler } from '@netlify/functions';
 import fetch from 'node-fetch';
 
 const handler: Handler = async (event) => {
-  // Add CORS headers for development
+  // Add CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',

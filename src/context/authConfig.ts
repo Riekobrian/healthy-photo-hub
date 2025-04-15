@@ -70,6 +70,9 @@ const getEnv = (): ImportMetaEnv => {
 
 const currentEnv = getEnv();
 
-export const GITHUB_CLIENT_ID = currentEnv.VITE_GITHUB_CLIENT_ID;
-export const GOOGLE_CLIENT_ID = currentEnv.VITE_GOOGLE_CLIENT_ID;
-export const GOOGLE_CLIENT_SECRET = currentEnv.VITE_GOOGLE_CLIENT_SECRET;
+// OAuth Client IDs and Secrets
+// In a production environment, these should be environment variables
+export const GITHUB_CLIENT_ID = "3edd87d2dd3b6af23d90";
+export const GOOGLE_CLIENT_ID =
+  "803617895928-5eg9n9etbi1ek8ak7380qemen75gtibv.apps.googleusercontent.com";
+export const GOOGLE_CLIENT_SECRET = "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";

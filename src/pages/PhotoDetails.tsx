@@ -1,82 +1,118 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { NavBar } from "@/components/NavBar";
-import { photosApi, albumsApi, Photo, Album } from "@/services/api";
-import { useAuth } from "@/hooks/use-auth";
-import { Loader2, ArrowLeft, Save, Edit, X } from "lucide-react";
+import { ArrowLeft, User as UserIcon, Pencil, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuth } from "@/hooks/use-auth";
+import { LoadingContainer } from "@/components/ui/loading-container";
+import { ImageWithSkeleton } from "@/components/ui/image-skeleton";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { photosApi } from "@/services/api";
+import { useAlbumDetails, useUser } from "@/hooks/use-api-queries";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { toast } from "sonner";
+import { useToast } from "@/hooks/use-toast";
 
 const PhotoDetails = () => {
   const { photoId } = useParams<{ photoId: string }>();
-  const [photo, setPhoto] = useState<Photo | null>(null);
-  const [album, setAlbum] = useState<Album | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedTitle, setEditedTitle] = useState("");
-  const [isSaving, setIsSaving] = useState(false);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [editedTitle, setEditedTitle] = React.useState("");
 
-  useEffect(() => {
-    // Redirect if not authenticated
+  React.useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
-      return;
     }
+  }, [isAuthenticated, navigate]);
 
-    if (!photoId) {
-      navigate("/home");
-      return;
+  // Fetch photo details
+  const {
+    data: photo,
+    isLoading: isLoadingPhoto,
+    error: photoError,
+  } = useQuery({
+    queryKey: ["photo", photoId],
+    queryFn: () => photosApi.getById(photoId!),
+    enabled: !!photoId,
+  });
+
+  // Initialize edited title when photo loads
+  React.useEffect(() => {
+    if (photo) {
+      setEditedTitle(photo.title);
     }
+  }, [photo]);
 
-    // Fetch photo details
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const photoData = await photosApi.getById(photoId);
-        setPhoto(photoData);
-        setEditedTitle(photoData.title);
+  // Update photo title mutation
+  const updatePhotoTitle = useMutation({
+    mutationFn: ({ id, title }: { id: number; title: string }) =>
+      photosApi.updateTitle(id, title),
+    onSuccess: (updatedPhoto) => {
+      // Update the cache for the individual photo
+      queryClient.setQueryData(["photo", photoId], updatedPhoto);
 
-        // Get album info
-        if (photoData.albumId) {
-          const albumData = await albumsApi.getById(photoData.albumId);
-          setAlbum(albumData);
-        }
-      } catch (error) {
-        console.error("Error fetching photo data:", error);
-        toast.error("Failed to load photo information.");
-      } finally {
-        setIsLoading(false);
+      // Update the album photos query
+      if (photo?.albumId) {
+        queryClient.invalidateQueries({
+          queryKey: ["photos", photo.albumId.toString()],
+        });
       }
-    };
 
-    fetchData();
-  }, [photoId, isAuthenticated, navigate]);
+      // Update any user's photos queries that might contain this photo
+      queryClient.invalidateQueries({
+        predicate: (query) =>
+          query.queryKey[0] === "photos" && query.queryKey[1] === "byAlbums",
+      });
 
-  const handleSaveTitle = async () => {
-    if (!photo || !editedTitle.trim()) return;
-
-    setIsSaving(true);
-    try {
-      const updatedPhoto = await photosApi.updateTitle(photo.id, editedTitle);
-      setPhoto(updatedPhoto);
       setIsEditing(false);
-      toast.success("Photo title updated successfully!");
-    } catch (error) {
-      console.error("Error updating photo title:", error);
-      toast.error("Failed to update photo title.");
-    } finally {
-      setIsSaving(false);
-    }
+      toast({
+        title: "Success",
+        description: "Photo title has been updated.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to update photo title. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Fetch album details once we have the photo
+  const {
+    data: album,
+    isLoading: isLoadingAlbum,
+    error: albumError,
+  } = useAlbumDetails(photo?.albumId ?? "");
+
+  // Fetch user details once we have the album
+  const {
+    data: user,
+    isLoading: isLoadingUser,
+    error: userError,
+  } = useUser(album?.userId ?? "");
+
+  const isLoading = isLoadingPhoto || isLoadingAlbum || isLoadingUser;
+  const error = photoError || albumError || userError;
+
+  const handleTitleUpdate = () => {
+    if (!photo || !editedTitle.trim()) return;
+    updatePhotoTitle.mutate({ id: photo.id, title: editedTitle.trim() });
   };
 
-  const cancelEditing = () => {
-    setEditedTitle(photo?.title || "");
+  const handleCancelEdit = () => {
+    setEditedTitle(photo?.title ?? "");
     setIsEditing(false);
   };
+
+  if (!photoId) {
+    navigate("/home");
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-muted">
@@ -93,99 +129,107 @@ const PhotoDetails = () => {
         )}
 
         {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <span className="ml-2 text-gray-600">Loading photo details...</span>
+          <LoadingContainer message="photos" />
+        ) : error ? (
+          <div className="text-center py-12 bg-white rounded-lg shadow">
+            <h3 className="text-xl font-medium text-red-600">
+              Error loading photo
+            </h3>
+            <p className="text-gray-500 mt-2">
+              {error instanceof Error
+                ? error.message
+                : "Failed to load photo information"}
+            </p>
+            <Button className="mt-4" onClick={() => navigate("/home")}>
+              Return to Home
+            </Button>
           </div>
         ) : photo ? (
-          <div className="max-w-3xl mx-auto">
-            <Card className="overflow-hidden">
-              {/* Photo */}
-              <div className="bg-gray-100">
-                <img
-                  src={photo.url}
-                  alt={photo.title}
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-
-              {/* Title */}
-              <CardContent className="p-6">
-                {isEditing ? (
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="photoTitle"
-                      className="text-sm font-medium text-gray-700"
-                    >
-                      Edit Photo Title
-                    </label>
-                    <Input
-                      id="photoTitle"
-                      value={editedTitle}
-                      onChange={(e) => setEditedTitle(e.target.value)}
-                      placeholder="Enter photo title"
-                      className="w-full"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex justify-between items-start">
-                    <h1 className="text-xl font-semibold">{photo.title}</h1>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setIsEditing(true)}
-                      className="ml-2"
-                    >
-                      <Edit size={18} />
-                    </Button>
-                  </div>
-                )}
-
-                {album && (
-                  <p className="mt-2 text-gray-600">
-                    From album:{" "}
-                    <Link
-                      to={`/albums/${album.id}`}
-                      className="text-primary hover:underline"
-                    >
-                      {album.title}
-                    </Link>
-                  </p>
-                )}
-              </CardContent>
-
-              {/* Action Buttons */}
-              {isEditing && (
-                <CardFooter className="bg-gray-50 px-6 py-4 flex justify-end space-x-2">
-                  <Button
-                    variant="outline"
-                    onClick={cancelEditing}
-                    disabled={isSaving}
-                    className="flex items-center"
-                  >
-                    <X size={16} className="mr-1" />
-                    Cancel
-                  </Button>
-                  <Button
-                    onClick={handleSaveTitle}
-                    disabled={!editedTitle.trim() || isSaving}
-                    className="bg-primary flex items-center"
-                  >
-                    {isSaving ? (
-                      <>
-                        <Loader2 size={16} className="mr-1 animate-spin" />
-                        Saving...
-                      </>
+          <div className="max-w-4xl mx-auto">
+            <Card>
+              <CardHeader className="relative p-0">
+                <div className="relative">
+                  <ImageWithSkeleton
+                    src={photo.url}
+                    alt={photo.title}
+                    className="w-full rounded-t-lg"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                    {isEditing ? (
+                      <div className="flex items-center gap-2">
+                        <Input
+                          value={editedTitle}
+                          onChange={(e) => setEditedTitle(e.target.value)}
+                          className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+                          placeholder="Enter photo title..."
+                        />
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="text-white/80 hover:text-white hover:bg-white/20"
+                          onClick={handleTitleUpdate}
+                          disabled={!editedTitle.trim()}
+                        >
+                          <Check className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="text-white/80 hover:text-white hover:bg-white/20"
+                          onClick={handleCancelEdit}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
                     ) : (
-                      <>
-                        <Save size={16} className="mr-1" />
-                        Save Changes
-                      </>
+                      <div className="space-y-2">
+                        <CardTitle className="text-2xl text-white flex items-center justify-between">
+                          {photo.title}
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            className="text-white/80 hover:text-white hover:bg-white/20"
+                            onClick={() => setIsEditing(true)}
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                        </CardTitle>
+                        {user && (
+                          <div className="flex items-center gap-2 text-white/90">
+                            <UserIcon size={16} />
+                            <span>From {user.name}'s album</span>
+                          </div>
+                        )}
+                      </div>
                     )}
-                  </Button>
-                </CardFooter>
-              )}
+                  </div>
+                </div>
+              </CardHeader>
+
+              <CardContent className="p-6">
+                <div className="aspect-video relative rounded-lg overflow-hidden">
+                  <ImageWithSkeleton
+                    src={photo.url}
+                    alt={photo.title}
+                    className="absolute inset-0 w-full h-full object-contain bg-black/5"
+                  />
+                </div>
+              </CardContent>
             </Card>
+
+            {/* Album Navigation */}
+            {album && (
+              <div className="mt-6 flex justify-between items-center">
+                <Link to={`/albums/${album.id}`}>
+                  <Button variant="outline">View Album</Button>
+                </Link>
+                {user && (
+                  <Link to={`/users/${user.id}`}>
+                    <Button variant="outline">View User Profile</Button>
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         ) : (
           <div className="text-center py-12 bg-white rounded-lg shadow">

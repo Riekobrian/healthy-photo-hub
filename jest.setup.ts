@@ -1,5 +1,7 @@
 // Load cross-fetch polyfills first
 import { fetch, Request, Response, Headers } from "cross-fetch";
+import importMetaMock from "./src/mocks/importMetaMock";
+
 global.fetch = fetch;
 global.Request = Request;
 global.Response = Response;
@@ -12,6 +14,9 @@ process.env.NODE_ENV = "test";
 process.env.VITE_GITHUB_CLIENT_ID = "test-github-id";
 process.env.VITE_GOOGLE_CLIENT_ID = "test-google-id";
 process.env.VITE_GOOGLE_CLIENT_SECRET = "test-google-secret";
+
+// Mock import.meta
+global.import = { meta: importMetaMock };
 
 // Set up environment variables for tests
 global.env = {

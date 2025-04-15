@@ -28,6 +28,15 @@ const config: Config = {
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
+  globals: {
+    "ts-jest": {
+      useESM: true,
+    },
+    "import.meta": {
+      env: {},
+      url: "http://localhost:3000",
+    },
+  },
 };
 
 export default config;

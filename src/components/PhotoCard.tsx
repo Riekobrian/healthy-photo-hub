@@ -1,26 +1,26 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Photo as PhotoType } from '@/services/api';
+import { ImageWithSkeleton } from "@/components/ui/image-skeleton";
+import { Photo } from "@/services/api";
 
 interface PhotoCardProps {
-  photo: PhotoType;
+  photo: Photo;
 }
 
 const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
   return (
     <Link to={`/photos/${photo.id}`} className="block">
       <Card className="h-full hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-        <div className="aspect-square overflow-hidden bg-gray-100">
-          <img 
-            src={photo.thumbnailUrl} 
+        <CardContent className="p-4">
+          <ImageWithSkeleton
+            src={photo.thumbnailUrl}
             alt={photo.title}
-            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            className="w-full aspect-square object-cover rounded-md"
           />
-        </div>
-        <CardFooter className="p-3">
-          <p className="text-sm line-clamp-2 text-center w-full">{photo.title}</p>
+        </CardContent>
+        <CardFooter className="px-4 pb-4 pt-0">
+          <p className="text-sm text-gray-600 line-clamp-2">{photo.title}</p>
         </CardFooter>
       </Card>
     </Link>

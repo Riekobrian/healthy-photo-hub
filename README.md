@@ -1,73 +1,143 @@
-# Welcome to your Lovable project
+# Healthy Photo Hub
 
-## Project info
+## Project Overview
 
-**URL**: https://lovable.dev/projects/839b1640-94c9-4990-a115-94799dc449c5
+A React-based photo management application built with TypeScript, Vite, and modern web technologies.
 
-## How can I edit this code?
+## Technologies
 
-There are several ways of editing your application.
+- Vite + React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- Jest + Testing Library
+- MSW (Mock Service Worker)
 
-**Use Lovable**
+## Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/839b1640-94c9-4990-a115-94799dc449c5) and start prompting.
+- Node.js 18+ (recommended: use [nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
+- npm 9+ or Bun
 
-Changes made via Lovable will be committed automatically to this repo.
+## Local Development Setup
 
-**Use your preferred IDE**
+1. Clone the repository:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+git clone <repository-url>
+cd healthy-photo-hub
 ```
 
-**Edit a file directly in GitHub**
+2. Install dependencies:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm install
+# or with Bun
+bun install
+```
 
-**Use GitHub Codespaces**
+3. Create a `.env` file in the root directory:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```env
+VITE_GITHUB_CLIENT_ID=your_github_client_id
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
+VITE_GOOGLE_CLIENT_SECRET=your_google_client_secret
+```
 
-## What technologies are used for this project?
+4. Start the development server:
 
-This project is built with:
+```bash
+npm run dev
+# or with Bun
+bun dev
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The app will be available at http://localhost:8080
 
-## How can I deploy this project?
+## Available Scripts
 
-Simply open [Lovable](https://lovable.dev/projects/839b1640-94c9-4990-a115-94799dc449c5) and click on Share -> Publish.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm test` - Run tests
+- `npm run coverage` - Run tests with coverage report
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
 
-## Can I connect a custom domain to my Lovable project?
+## Testing
 
-Yes it is!
+The project uses Jest and Testing Library for testing. Mock Service Worker (MSW) is used to intercept and mock API requests during tests.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Run tests:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```bash
+npm test
+```
+
+Generate coverage report:
+
+```bash
+npm run coverage
+```
+
+## Error Handling and Monitoring
+
+The application implements a comprehensive error handling system:
+
+- **Error Logging Service**: Centralized error logging with severity levels (INFO, WARNING, ERROR, CRITICAL)
+- **Toast Notifications**: User-friendly error messages using Sonner
+- **Console Logging**: Detailed error information for development
+- **Error Context**: Structured error logging with additional context
+- **Error Rotation**: Maintains last 100 errors in memory
+- **External Service Integration**: Prepared for integration with services like Sentry (TODO)
+
+## Deployment
+
+### Production Build
+
+1. Build the application:
+
+```bash
+npm run build
+```
+
+2. Preview the build:
+
+```bash
+npm run preview
+```
+
+### Deployment Options
+
+#### Netlify (Recommended)
+
+1. Push your changes to your repository
+2. Open [Lovable](https://lovable.dev/projects/839b1640-94c9-4990-a115-94799dc449c5)
+3. Click Share -> Publish
+
+#### Custom Domain Setup
+
+1. Navigate to Project > Settings > Domains
+2. Click Connect Domain
+3. Follow the [custom domain setup guide](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Environment Variables
+
+Required environment variables:
+
+- `VITE_GITHUB_CLIENT_ID`: GitHub OAuth client ID
+- `VITE_GOOGLE_CLIENT_ID`: Google OAuth client ID
+- `VITE_GOOGLE_CLIENT_SECRET`: Google OAuth client secret
+
+For local development, create a `.env` file. For production, set these through your hosting platform.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a pull request
+
+## License
+
+This project is private and confidential.

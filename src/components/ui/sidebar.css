@@ -1,0 +1,21 @@
+:root {
+  --sidebar-width: 16rem;
+  --sidebar-width-icon: 3rem;
+  --sidebar-width-mobile: 18rem;
+}
+
+[data-sidebar="sidebar-wrapper"] {
+  --sidebar-width: var(--sidebar-width);
+  --sidebar-width-icon: var(--sidebar-width-icon);
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+}
+
+[data-sidebar="sidebar-wrapper"][data-variant="inset"] {
+  background-color: hsl(var(--sidebar));
+}
+
+[data-sidebar="skeleton"] {
+  --skeleton-width: 50%;
+}

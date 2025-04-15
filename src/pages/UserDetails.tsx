@@ -1,93 +1,76 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { NavBar } from "@/components/NavBar";
 import AlbumCard from "@/components/AlbumCard";
-import {
-  usersApi,
-  albumsApi,
-  photosApi,
-  User,
-  Album,
-  Photo,
-} from "@/services/api";
+import { photosApi, Album, Photo } from "@/services/api";
 import { useAuth } from "@/hooks/use-auth";
-import {
-  Loader2,
-  Mail,
-  Globe,
-  Phone,
-  MapPin,
-  Building,
-  ArrowLeft,
-} from "lucide-react";
+import { Mail, Globe, Phone, MapPin, Building, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { toast } from "sonner";
+import { LoadingContainer } from "@/components/ui/loading-container";
+import { useUser, useUserAlbums } from "@/hooks/use-api-queries";
+import { useQuery } from "@tanstack/react-query";
 
 const UserDetails = () => {
   const { userId } = useParams<{ userId: string }>();
-  const [user, setUser] = useState<User | null>(null);
-  const [albums, setAlbums] = useState<Album[]>([]);
-  const [photos, setPhotos] = useState<Record<number, Photo[]>>({});
-  const [isLoading, setIsLoading] = useState(true);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Redirect if not authenticated
+  React.useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
-      return;
     }
+  }, [isAuthenticated, navigate]);
 
-    if (!userId) {
-      navigate("/home");
-      return;
-    }
+  // Fetch user details
+  const {
+    data: user,
+    isLoading: isLoadingUser,
+    error: userError,
+  } = useUser(userId!);
 
-    // Fetch user details and albums
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const userData = await usersApi.getById(userId);
-        const userAlbums = await albumsApi.getByUserId(userId);
+  // Fetch user's albums
+  const {
+    data: albums = [],
+    isLoading: isLoadingAlbums,
+    error: albumsError,
+  } = useUserAlbums(userId!);
 
-        setUser(userData);
-        setAlbums(userAlbums);
+  // Fetch photos for each album
+  const {
+    data: photosByAlbum = {},
+    isLoading: isLoadingPhotos,
+    error: photosError,
+  } = useQuery({
+    queryKey: ["photos", "byAlbums", userId],
+    queryFn: async () => {
+      const photosByAlbumMap: Record<number, Photo[]> = {};
+      await Promise.all(
+        albums.map(async (album) => {
+          try {
+            const albumPhotos = await photosApi.getByAlbumId(album.id);
+            photosByAlbumMap[album.id] = albumPhotos;
+          } catch (error) {
+            console.error(
+              `Error fetching photos for album ${album.id}:`,
+              error
+            );
+            photosByAlbumMap[album.id] = [];
+          }
+        })
+      );
+      return photosByAlbumMap;
+    },
+    enabled: albums.length > 0,
+  });
 
-        // Fetch photos for each album
-        const photosByAlbum: Record<number, Photo[]> = {};
-
-        await Promise.all(
-          userAlbums.map(async (album) => {
-            try {
-              const albumPhotos = await photosApi.getByAlbumId(album.id);
-              photosByAlbum[album.id] = albumPhotos;
-            } catch (error) {
-              console.error(
-                `Error fetching photos for album ${album.id}:`,
-                error
-              );
-            }
-          })
-        );
-
-        setPhotos(photosByAlbum);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        toast.error("Failed to load user information.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [userId, isAuthenticated, navigate]);
+  const isLoading = isLoadingUser || isLoadingAlbums || isLoadingPhotos;
+  const error = userError || albumsError || photosError;
 
   // Get photo count for each album
   const getAlbumPhotoCount = (albumId: number) => {
-    return photos[albumId]?.length || 0;
+    return photosByAlbum[albumId]?.length || 0;
   };
 
   // Get initials for avatar
@@ -99,6 +82,11 @@ const UserDetails = () => {
       .toUpperCase()
       .substring(0, 2);
   };
+
+  if (!userId) {
+    navigate("/home");
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-muted">
@@ -113,9 +101,20 @@ const UserDetails = () => {
         </Link>
 
         {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <span className="ml-2 text-gray-600">Loading user details...</span>
+          <LoadingContainer message="userDetails" />
+        ) : error ? (
+          <div className="text-center py-12 bg-white rounded-lg shadow">
+            <h3 className="text-xl font-medium text-red-600">
+              Error loading user
+            </h3>
+            <p className="text-gray-500 mt-2">
+              {error instanceof Error
+                ? error.message
+                : "Failed to load user information"}
+            </p>
+            <Button className="mt-4" onClick={() => navigate("/home")}>
+              Return to Home
+            </Button>
           </div>
         ) : user ? (
           <>

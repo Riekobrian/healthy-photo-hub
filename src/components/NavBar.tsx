@@ -30,7 +30,11 @@ export const NavBar = () => {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <Button variant="ghost" size="icon" onClick={toggleMenu}>
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? (
+                <X data-testid="close-icon" size={24} />
+              ) : (
+                <Menu data-testid="menu-icon" size={24} />
+              )}
             </Button>
           </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,49 +13,69 @@ import {
 import { NavBar } from "@/components/NavBar";
 import { useAuth } from "@/hooks/use-auth";
 import { GitHubIcon, GoogleIcon } from "@/components/Icons";
-import { Loader2 } from "lucide-react";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { toast } from "sonner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { login, loginWithGoogle, loginWithGithub } = useAuth();
+  const [loadingStates, setLoadingStates] = useState({
+    emailPassword: false,
+    google: false,
+    github: false,
+  });
+  const { login, loginWithGoogle, loginWithGithub, isAuthenticated } =
+    useAuth();
   const navigate = useNavigate();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/home");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setLoadingStates((prev) => ({ ...prev, emailPassword: true }));
     try {
       await login(email, password);
       navigate("/home");
     } catch (error) {
       console.error("Login failed:", error);
+      toast.error("Login failed. Please check your credentials and try again.");
     } finally {
-      setIsLoading(false);
+      setLoadingStates((prev) => ({ ...prev, emailPassword: false }));
     }
   };
 
   const handleGoogleLogin = async () => {
-    setIsLoading(true);
+    setLoadingStates((prev) => ({ ...prev, google: true }));
     try {
       await loginWithGoogle();
+      navigate("/home");
     } catch (error) {
       console.error("Google login failed:", error);
+      toast.error("Google login failed. Please try again.");
     } finally {
-      setIsLoading(false);
+      setLoadingStates((prev) => ({ ...prev, google: false }));
     }
   };
 
   const handleGithubLogin = async () => {
-    setIsLoading(true);
+    setLoadingStates((prev) => ({ ...prev, github: true }));
     try {
       await loginWithGithub();
+      navigate("/home");
     } catch (error) {
       console.error("GitHub login failed:", error);
+      toast.error("GitHub login failed. Please try again.");
     } finally {
-      setIsLoading(false);
+      setLoadingStates((prev) => ({ ...prev, github: false }));
     }
   };
+
+  const isAnyLoading = Object.values(loadingStates).some((state) => state);
 
   return (
     <>
@@ -81,6 +101,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled={isAnyLoading}
                 />
               </div>
               <div className="space-y-2">
@@ -92,14 +113,12 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  disabled={isAnyLoading}
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Loading...
-                  </>
+              <Button type="submit" className="w-full" disabled={isAnyLoading}>
+                {loadingStates.emailPassword ? (
+                  <LoadingSpinner size="sm" text="Signing in..." />
                 ) : (
                   "Sign In"
                 )}
@@ -122,11 +141,11 @@ const Login = () => {
                 variant="outline"
                 type="button"
                 onClick={handleGoogleLogin}
-                disabled={isLoading}
+                disabled={isAnyLoading}
                 className="flex items-center justify-center gap-2"
               >
-                {isLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                {loadingStates.google ? (
+                  <LoadingSpinner size="sm" />
                 ) : (
                   <GoogleIcon />
                 )}
@@ -136,11 +155,11 @@ const Login = () => {
                 variant="outline"
                 type="button"
                 onClick={handleGithubLogin}
-                disabled={isLoading}
+                disabled={isAnyLoading}
                 className="flex items-center justify-center gap-2"
               >
-                {isLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                {loadingStates.github ? (
+                  <LoadingSpinner size="sm" />
                 ) : (
                   <GitHubIcon />
                 )}

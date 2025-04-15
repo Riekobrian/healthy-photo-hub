@@ -1,15 +1,35 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Image, Users, Album, Shield } from 'lucide-react';
-import { NavBar } from '@/components/NavBar';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Image, Users, Album, Shield } from "lucide-react";
+import { NavBar } from "@/components/NavBar";
+import { LoadingContainer } from "@/components/ui/loading-container";
 
 const Landing = () => {
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    // Simulate loading of initial content
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen">
+        <NavBar />
+        <LoadingContainer message="generic" className="mt-16" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
-      
+
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-primary to-secondary py-16 md:py-24 text-white">
@@ -19,7 +39,8 @@ const Landing = () => {
                 Your Health Data, Organized Beautifully
               </h1>
               <p className="text-xl mb-8 opacity-90">
-                HealthyCare helps you manage and organize your health information with a beautiful, intuitive interface.
+                HealthyCare helps you manage and organize your health
+                information with a beautiful, intuitive interface.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link to="/login">
@@ -36,8 +57,10 @@ const Landing = () => {
         {/* Features Section */}
         <section className="py-16 bg-muted">
           <div className="container-custom">
-            <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
-            
+            <h2 className="text-3xl font-bold text-center mb-12">
+              Key Features
+            </h2>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="bg-white p-6 rounded-lg shadow-md text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -45,10 +68,11 @@ const Landing = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">User Management</h3>
                 <p className="text-gray-600">
-                  Efficiently manage user profiles and personal health information.
+                  Efficiently manage user profiles and personal health
+                  information.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md text-center">
                 <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Album size={30} className="text-secondary" />
@@ -58,7 +82,7 @@ const Landing = () => {
                   Organize your health records into easy-to-access albums.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md text-center">
                 <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Image size={30} className="text-accent" />
@@ -68,7 +92,7 @@ const Landing = () => {
                   Securely store and manage medical images and documents.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-lg shadow-md text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield size={30} className="text-primary" />
@@ -81,13 +105,14 @@ const Landing = () => {
             </div>
           </div>
         </section>
-        
+
         {/* CTA Section */}
         <section className="py-16 bg-accent text-white">
           <div className="container-custom text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Join thousands of users who trust HealthyCare with their health information management.
+              Join thousands of users who trust HealthyCare with their health
+              information management.
             </p>
             <Link to="/login">
               <Button className="bg-white text-accent hover:bg-white/90 px-6 py-5 rounded-xl font-semibold text-lg">
@@ -97,14 +122,14 @@ const Landing = () => {
           </div>
         </section>
       </main>
-      
+
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8">
         <div className="container-custom">
           <div className="text-center">
             <p className="text-sm opacity-80">
-              &copy; 2025 HealthyCare. All rights reserved. 
-              Savannah Informatics Frontend Assessment.
+              &copy; 2025 HealthyCare. All rights reserved. Savannah Informatics
+              Frontend Assessment.
             </p>
           </div>
         </div>
