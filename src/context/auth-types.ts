@@ -28,6 +28,7 @@ export interface AuthContextType extends AuthState {
   loginWithGoogle: () => Promise<void>;
   loginWithGithub: () => Promise<void>;
   logout: () => Promise<void>;
+  handleOAuthCallback: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(

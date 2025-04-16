@@ -134,140 +134,145 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  useEffect(() => {
-    const handleOAuthCallback = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const code = urlParams.get("code");
-      const state = urlParams.get("state");
+  // New function to handle OAuth callback logic
+  const handleOAuthCallback = async (): Promise<void> => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const state = urlParams.get("state");
 
-      if (code && state) {
-        try {
-          setStatus("loading");
-          setError(null);
+    if (code && state) {
+      try {
+        setStatus("loading");
+        setError(null);
 
-          let userData;
+        let userData;
 
-          if (state === "google") {
-            const redirectUri = `${getRedirectOrigin()}/.netlify/identity/callback`;
-            const formData = new URLSearchParams();
-            formData.append("code", code);
-            formData.append("client_id", GOOGLE_CLIENT_ID);
-            formData.append("client_secret", GOOGLE_CLIENT_SECRET);
-            formData.append("redirect_uri", redirectUri);
-            formData.append("grant_type", "authorization_code");
+        if (state === "google") {
+          const redirectUri = `${getRedirectOrigin()}/.netlify/identity/callback`;
+          const formData = new URLSearchParams();
+          formData.append("code", code);
+          formData.append("client_id", GOOGLE_CLIENT_ID);
+          formData.append("client_secret", GOOGLE_CLIENT_SECRET);
+          formData.append("redirect_uri", redirectUri);
+          formData.append("grant_type", "authorization_code");
 
-            const tokenResponse = await fetch(
-              "https://oauth2.googleapis.com/token",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: formData,
-              }
-            );
-
-            if (!tokenResponse.ok) {
-              const errorData = await tokenResponse.text();
-              throw new Error(`Token exchange failed: ${errorData}`);
+          const tokenResponse = await fetch(
+            "https://oauth2.googleapis.com/token",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: formData,
             }
+          );
 
-            const tokenData = await tokenResponse.json();
-
-            if (tokenData.access_token) {
-              const userResponse = await fetch(
-                "https://www.googleapis.com/oauth2/v2/userinfo",
-                {
-                  headers: {
-                    Authorization: `Bearer ${tokenData.access_token}`,
-                  },
-                }
-              );
-
-              if (!userResponse.ok) {
-                throw new Error("Failed to fetch user data");
-              }
-
-              userData = await userResponse.json();
-            }
-          } else if (state === "github") {
-            const tokenResponse = await fetch(
-              "/.netlify/functions/github-oauth",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  code,
-                  redirect_uri: `${getRedirectOrigin()}/.netlify/identity/callback`,
-                }),
-              }
-            );
-
-            const tokenData = await tokenResponse.json();
-
-            if (tokenData.access_token) {
-              // Fetch user data
-              const [userResponse, emailResponse] = await Promise.all([
-                fetch("https://api.github.com/user", {
-                  headers: {
-                    Authorization: `Bearer ${tokenData.access_token}`,
-                    Accept: "application/vnd.github.v3+json",
-                  },
-                }),
-                fetch("https://api.github.com/user/emails", {
-                  headers: {
-                    Authorization: `Bearer ${tokenData.access_token}`,
-                    Accept: "application/vnd.github.v3+json",
-                  },
-                }),
-              ]);
-
-              const githubUser = await userResponse.json();
-              const emails = await emailResponse.json();
-
-              const primaryEmail = emails.find(
-                (email: { primary: boolean }) => email.primary
-              );
-
-              userData = {
-                ...githubUser,
-                email: primaryEmail?.email || githubUser.email,
-              };
-            }
+          if (!tokenResponse.ok) {
+            const errorData = await tokenResponse.text();
+            throw new Error(`Token exchange failed: ${errorData}`);
           }
 
-          if (userData) {
-            const user: User = {
-              id: userData.id,
-              name: userData.name || userData.login,
-              email: userData.email,
-              provider: state as "google" | "github",
-              picture: userData.avatar_url || userData.picture,
+          const tokenData = await tokenResponse.json();
+
+          if (tokenData.access_token) {
+            const userResponse = await fetch(
+              "https://www.googleapis.com/oauth2/v2/userinfo",
+              {
+                headers: {
+                  Authorization: `Bearer ${tokenData.access_token}`,
+                },
+              }
+            );
+
+            if (!userResponse.ok) {
+              throw new Error("Failed to fetch user data");
+            }
+
+            userData = await userResponse.json();
+          }
+        } else if (state === "github") {
+          const tokenResponse = await fetch(
+            "/.netlify/functions/github-oauth",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                code,
+                redirect_uri: `${getRedirectOrigin()}/.netlify/identity/callback`,
+              }),
+            }
+          );
+
+          const tokenData = await tokenResponse.json();
+
+          if (tokenData.access_token) {
+            // Fetch user data
+            const [userResponse, emailResponse] = await Promise.all([
+              fetch("https://api.github.com/user", {
+                headers: {
+                  Authorization: `Bearer ${tokenData.access_token}`,
+                  Accept: "application/vnd.github.v3+json",
+                },
+              }),
+              fetch("https://api.github.com/user/emails", {
+                headers: {
+                  Authorization: `Bearer ${tokenData.access_token}`,
+                  Accept: "application/vnd.github.v3+json",
+                },
+              }),
+            ]);
+
+            const githubUser = await userResponse.json();
+            const emails = await emailResponse.json();
+
+            const primaryEmail = emails.find(
+              (email: { primary: boolean }) => email.primary
+            );
+
+            userData = {
+              ...githubUser,
+              email: primaryEmail?.email || githubUser.email,
             };
-
-            setUser(user);
-            localStorage.setItem("user", JSON.stringify(user));
-            setStatus("authenticated");
-            toast.success("Login successful");
-
-            // Clean up URL
-            window.history.replaceState({}, document.title, "/login");
-          } else {
-            throw new Error("Failed to get user data");
           }
-        } catch (error) {
-          console.error("OAuth error:", error);
-          setError(error as Error);
-          setStatus("unauthenticated");
-          toast.error("Login failed: " + (error as Error).message);
         }
-      }
-    };
 
-    handleOAuthCallback();
-  }, []);
+        if (userData) {
+          const user: User = {
+            id: userData.id,
+            name: userData.name || userData.login,
+            email: userData.email,
+            provider: state as "google" | "github",
+            picture: userData.avatar_url || userData.picture,
+          };
+
+          setUser(user);
+          localStorage.setItem("user", JSON.stringify(user));
+          setStatus("authenticated");
+          toast.success("Login successful");
+
+          // Clean up URL - navigate away from callback page
+          window.history.replaceState({}, document.title, "/"); // Redirect to home after successful login
+        } else {
+          throw new Error("Failed to get user data");
+        }
+      } catch (error) {
+        console.error("OAuth error:", error);
+        setError(error as Error);
+        setStatus("unauthenticated");
+        toast.error("Login failed: " + (error as Error).message);
+        // Clean up URL - navigate away from callback page even on error
+        window.history.replaceState({}, document.title, "/login"); // Redirect to login on error
+        throw error; // Re-throw error to be caught by CallbackHandler
+      }
+    } else {
+      // No code/state found, maybe direct navigation to /callback?
+      console.warn("No code or state found in URL for OAuth callback.");
+      setStatus("unauthenticated");
+      window.history.replaceState({}, document.title, "/login"); // Redirect to login
+    }
+  };
 
   const logout = async (): Promise<void> => {
     try {
@@ -301,6 +306,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         logout,
         loginWithGoogle,
         loginWithGithub,
+        handleOAuthCallback, // Expose the new function
       }}
     >
       {children}

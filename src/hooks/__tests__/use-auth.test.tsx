@@ -16,6 +16,7 @@ describe("useAuth", () => {
     logout: jest.fn().mockResolvedValue(undefined),
     loginWithGoogle: jest.fn().mockResolvedValue(undefined),
     loginWithGithub: jest.fn().mockResolvedValue(undefined),
+    handleOAuthCallback: jest.fn().mockResolvedValue(undefined),
   };
 
   it("should return auth context when used within AuthProvider", () => {
@@ -102,6 +103,7 @@ describe("useAuth Hook", () => {
       logout: jest.fn(),
       loginWithGoogle: jest.fn(),
       loginWithGithub: jest.fn(),
+      handleOAuthCallback: jest.fn().mockResolvedValue(undefined),
     };
 
     const wrapper = ({ children }: { children: React.ReactNode }) => (

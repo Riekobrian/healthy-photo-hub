@@ -12,6 +12,7 @@ const initialState: AuthContextType = {
   logout: async () => {},
   loginWithGoogle: async () => {},
   loginWithGithub: async () => {},
+  handleOAuthCallback: async () => {},
 };
 
 export const AuthContext = createContext<AuthContextType>(initialState);
