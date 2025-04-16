@@ -111,7 +111,7 @@ npm run preview
 #### Netlify (Recommended)
 
 1. Push your changes to your repository
-2. Open [Lovable](https://lovable.dev/projects/839b1640-94c9-4990-a115-94799dc449c5)
+2. Open [Netlify](https://lovable.dev/projects/839b1640-94c9-4990-a115-94799dc449c5)
 3. Click Share -> Publish
 
 #### Custom Domain Setup
