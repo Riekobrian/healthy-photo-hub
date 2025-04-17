@@ -1,5 +1,7 @@
 export const testEnv = {
-  VITE_GITHUB_CLIENT_ID: "test-github-client-id",
-  VITE_GOOGLE_CLIENT_ID: "test-google-client-id",
-  VITE_GOOGLE_CLIENT_SECRET: "test-google-client-secret"
+  VITE_NETLIFY_SITE_URL: "http://localhost:8888",
+  MODE: "test",
+  DEV: true,
+  PROD: false,
+  SSR: false
 };

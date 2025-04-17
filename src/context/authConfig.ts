@@ -6,10 +6,7 @@ declare global {
   }
 
   interface ImportMetaEnv {
-    VITE_GITHUB_CLIENT_ID: string;
-    VITE_GOOGLE_CLIENT_ID: string;
-    VITE_GOOGLE_CLIENT_SECRET: string;
-    BASE_URL: string;
+    VITE_NETLIFY_SITE_URL: string;
     MODE: string;
     DEV: boolean;
     PROD: boolean;
@@ -25,9 +22,7 @@ const getViteEnv = (): ImportMetaEnv => {
   ) {
     console.warn("import.meta.env not found, falling back to process.env");
     return {
-      VITE_GITHUB_CLIENT_ID: process.env.VITE_GITHUB_CLIENT_ID || "",
-      VITE_GOOGLE_CLIENT_ID: process.env.VITE_GOOGLE_CLIENT_ID || "",
-      VITE_GOOGLE_CLIENT_SECRET: process.env.VITE_GOOGLE_CLIENT_SECRET || "",
+      VITE_NETLIFY_SITE_URL: process.env.VITE_NETLIFY_SITE_URL || "",
       BASE_URL: process.env.BASE_URL || "/",
       MODE: process.env.MODE || "development",
       DEV: process.env.DEV === "true" || true,
@@ -42,12 +37,7 @@ const getViteEnv = (): ImportMetaEnv => {
 const getEnv = (): ImportMetaEnv => {
   if (process.env.NODE_ENV === "test") {
     return {
-      VITE_GITHUB_CLIENT_ID:
-        process.env.VITE_GITHUB_CLIENT_ID || "test-github-id",
-      VITE_GOOGLE_CLIENT_ID:
-        process.env.VITE_GOOGLE_CLIENT_ID || "test-google-id",
-      VITE_GOOGLE_CLIENT_SECRET:
-        process.env.VITE_GOOGLE_CLIENT_SECRET || "test-google-secret",
+      VITE_NETLIFY_SITE_URL: "http://localhost:8888",
       BASE_URL: "/",
       MODE: "test",
       DEV: true,
@@ -64,17 +54,10 @@ const getEnv = (): ImportMetaEnv => {
 
 const env = getEnv();
 
-// OAuth Client IDs and Secrets from environment variables
-export const GITHUB_CLIENT_ID = env.VITE_GITHUB_CLIENT_ID;
-export const GOOGLE_CLIENT_ID = env.VITE_GOOGLE_CLIENT_ID;
-export const GOOGLE_CLIENT_SECRET = env.VITE_GOOGLE_CLIENT_SECRET;
-
 // Get the correct origin for OAuth redirects
 export const getRedirectOrigin = () => {
   if (typeof window !== "undefined") {
-    return process.env.NODE_ENV === "production"
-      ? "https://nimble-blini-d1c847.netlify.app"
-      : window.location.origin;
+    return import.meta.env.VITE_NETLIFY_SITE_URL || window.location.origin;
   }
   return "";
 };

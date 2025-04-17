@@ -20,3 +20,32 @@
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Security Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self' https://api.netlify.com; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.netlify.com"
+    X-XSS-Protection = "1; mode=block"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+[secrets]
+  SECRETS_SCAN_ENABLED = true
+  # Exclude test and example files from secrets scanning
+  SECRETS_SCAN_OMIT_PATHS = [
+    "**/test/**/*",
+    "**/*.test.*",
+    "**/*.example",
+    "**/*.example.*",
+    "**/coverage/**/*"
+  ]

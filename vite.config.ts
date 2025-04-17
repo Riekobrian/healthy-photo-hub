@@ -21,19 +21,26 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-    }
-  },
-  optimizeDeps: {
-    include: ['netlify-identity-widget']
+    },
   },
   build: {
+    sourcemap: true,
     rollupOptions: {
-      external: ['netlify-identity-widget'],
       output: {
-        globals: {
-          'netlify-identity-widget': 'netlifyIdentity'
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          auth: ['netlify-identity-widget']
         }
       }
-    }
-  }
+    },
+    // Remove console.logs in production
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+      },
+    },
+  },
+  // Only include environment variables starting with VITE_
+  envPrefix: 'VITE_'
 }));
