@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "../hooks/use-auth";
+import { Navigate } from "react-router-dom";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, isAuthenticated, isInitializing } = useAuth();
+
+  // If already authenticated, redirect to home
+  if (isInitializing) {
+    return <LoadingSpinner />;
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/home" replace />;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

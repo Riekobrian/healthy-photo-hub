@@ -7,6 +7,7 @@ import AlbumDetails from "@/pages/AlbumDetails";
 import PhotoDetails from "@/pages/PhotoDetails";
 import NotFound from "@/pages/NotFound";
 import { useAuth } from "@/hooks/use-auth";
+import { PrivateRoute } from "@/components/PrivateRoute";
 
 export const Router = () => {
   const { isAuthenticated } = useAuth();
@@ -15,10 +16,38 @@ export const Router = () => {
     <Routes>
       <Route path="/" element={isAuthenticated ? <Home /> : <Landing />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/users/:userId" element={<UserDetails />} />
-      <Route path="/albums/:albumId" element={<AlbumDetails />} />
-      <Route path="/photos/:photoId" element={<PhotoDetails />} />
+      <Route
+        path="/home"
+        element={
+          <PrivateRoute>
+            <Home />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/users/:userId"
+        element={
+          <PrivateRoute>
+            <UserDetails />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/albums/:albumId"
+        element={
+          <PrivateRoute>
+            <AlbumDetails />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/photos/:photoId"
+        element={
+          <PrivateRoute>
+            <PhotoDetails />
+          </PrivateRoute>
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
