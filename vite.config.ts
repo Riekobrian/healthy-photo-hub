@@ -21,6 +21,19 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-    },
+    }
   },
+  optimizeDeps: {
+    include: ['netlify-identity-widget']
+  },
+  build: {
+    rollupOptions: {
+      external: ['netlify-identity-widget'],
+      output: {
+        globals: {
+          'netlify-identity-widget': 'netlifyIdentity'
+        }
+      }
+    }
+  }
 }));
