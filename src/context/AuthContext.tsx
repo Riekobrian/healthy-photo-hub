@@ -35,6 +35,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setUser(null);
       setStatus("unauthenticated");
       toast.success("Successfully logged out");
+      window.location.href = "/"; // Redirect to homepage after logout
     });
 
     netlifyIdentity.on("error", (err) => {
