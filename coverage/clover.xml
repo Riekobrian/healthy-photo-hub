@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744708194482" clover="3.2.0">
-  <project timestamp="1744708194487" name="All files">
-    <metrics statements="393" coveredstatements="364" conditionals="108" coveredconditionals="88" methods="112" coveredmethods="93" elements="613" coveredelements="545" complexity="0" loc="393" ncloc="393" packages="7" files="26" classes="26"/>
+<coverage generated="1744879032984" clover="3.2.0">
+  <project timestamp="1744879032985" name="All files">
+    <metrics statements="587" coveredstatements="487" conditionals="258" coveredconditionals="155" methods="164" coveredmethods="113" elements="1009" coveredelements="755" complexity="0" loc="587" ncloc="587" packages="8" files="31" classes="31"/>
     <package name="components">
-      <metrics statements="61" coveredstatements="58" conditionals="38" coveredconditionals="27" methods="16" coveredmethods="12"/>
+      <metrics statements="56" coveredstatements="53" conditionals="38" coveredconditionals="27" methods="14" coveredmethods="10"/>
       <file name="AlbumCard.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\AlbumCard.tsx">
         <metrics statements="7" coveredstatements="7" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="10" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="18" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
       </file>
       <file name="ErrorBoundary.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ErrorBoundary.tsx">
         <metrics statements="13" coveredstatements="12" conditionals="5" coveredconditionals="3" methods="5" coveredmethods="4"/>
@@ -30,171 +30,249 @@
         <line num="61" count="9" type="stmt"/>
         <line num="65" count="1" type="stmt"/>
       </file>
-      <file name="Icons.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\Icons.tsx">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="31" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="32" type="stmt"/>
-      </file>
       <file name="LoadingSpinner.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\LoadingSpinner.tsx">
         <metrics statements="6" coveredstatements="6" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="16" count="3" type="stmt"/>
-        <line num="21" count="24" type="stmt"/>
-        <line num="29" count="3" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="21" count="49" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
       </file>
       <file name="NavBar.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\NavBar.tsx">
         <metrics statements="16" coveredstatements="14" conditionals="16" coveredconditionals="7" methods="5" coveredmethods="2"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="6" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="9" count="43" type="stmt"/>
-        <line num="10" count="43" type="stmt"/>
-        <line num="11" count="43" type="stmt"/>
-        <line num="13" count="43" type="stmt"/>
-        <line num="14" count="43" type="stmt"/>
-        <line num="16" count="43" type="stmt"/>
-        <line num="18" count="43" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="60" type="stmt"/>
+        <line num="10" count="60" type="stmt"/>
+        <line num="11" count="60" type="stmt"/>
+        <line num="13" count="60" type="stmt"/>
+        <line num="14" count="60" type="stmt"/>
+        <line num="16" count="60" type="stmt"/>
+        <line num="18" count="60" type="stmt"/>
         <line num="105" count="0" type="stmt"/>
         <line num="106" count="0" type="stmt"/>
       </file>
       <file name="PhotoCard.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\PhotoCard.tsx">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="5" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
       </file>
       <file name="UserCard.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\UserCard.tsx">
         <metrics statements="7" coveredstatements="7" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
         <line num="14" count="9" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
       </file>
     </package>
     <package name="components.ui">
-      <metrics statements="73" coveredstatements="73" conditionals="15" coveredconditionals="11" methods="14" coveredmethods="14"/>
+      <metrics statements="77" coveredstatements="75" conditionals="15" coveredconditionals="11" methods="16" coveredmethods="14"/>
+      <file name="avatar.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ui\avatar.tsx">
+        <metrics statements="13" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="36" count="5" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+      </file>
       <file name="button.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ui\button.tsx">
         <metrics statements="11" coveredstatements="11" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="42" count="2" type="stmt"/>
-        <line num="43" count="188" type="cond" truecount="1" falsecount="0"/>
-        <line num="44" count="188" type="cond" truecount="1" falsecount="1"/>
-        <line num="45" count="188" type="stmt"/>
-        <line num="54" count="2" type="stmt"/>
-        <line num="56" count="2" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="145" type="cond" truecount="1" falsecount="0"/>
+        <line num="44" count="145" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="145" type="stmt"/>
+        <line num="54" count="5" type="stmt"/>
+        <line num="56" count="5" type="stmt"/>
       </file>
       <file name="card.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ui\card.tsx">
-        <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="8" count="58" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="20" count="4" type="stmt"/>
-        <line num="23" count="53" type="stmt"/>
-        <line num="30" count="4" type="stmt"/>
-        <line num="32" count="4" type="stmt"/>
-        <line num="35" count="53" type="stmt"/>
-        <line num="45" count="4" type="stmt"/>
-        <line num="47" count="4" type="stmt"/>
-        <line num="50" count="34" type="stmt"/>
-        <line num="57" count="4" type="stmt"/>
-        <line num="59" count="4" type="stmt"/>
-        <line num="62" count="58" type="stmt"/>
-        <line num="65" count="4" type="stmt"/>
-        <line num="67" count="4" type="stmt"/>
-        <line num="70" count="10" type="stmt"/>
-        <line num="77" count="4" type="stmt"/>
-        <line num="79" count="4" type="stmt"/>
+        <metrics statements="21" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="5"/>
+        <line num="1" count="7" type="stmt"/>
+        <line num="3" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="8" count="47" type="stmt"/>
+        <line num="18" count="7" type="stmt"/>
+        <line num="20" count="7" type="stmt"/>
+        <line num="23" count="36" type="stmt"/>
+        <line num="30" count="7" type="stmt"/>
+        <line num="32" count="7" type="stmt"/>
+        <line num="35" count="36" type="stmt"/>
+        <line num="45" count="7" type="stmt"/>
+        <line num="47" count="7" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="57" count="7" type="stmt"/>
+        <line num="59" count="7" type="stmt"/>
+        <line num="62" count="47" type="stmt"/>
+        <line num="65" count="7" type="stmt"/>
+        <line num="67" count="7" type="stmt"/>
+        <line num="70" count="24" type="stmt"/>
+        <line num="77" count="7" type="stmt"/>
+        <line num="79" count="7" type="stmt"/>
       </file>
       <file name="image-skeleton.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ui\image-skeleton.tsx">
         <metrics statements="13" coveredstatements="13" conditionals="8" coveredconditionals="7" methods="3" coveredmethods="3"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="13" count="20" type="cond" truecount="1" falsecount="0"/>
-        <line num="14" count="20" type="stmt"/>
-        <line num="16" count="20" type="stmt"/>
-        <line num="17" count="20" type="stmt"/>
-        <line num="19" count="20" type="stmt"/>
-        <line num="20" count="20" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="13" count="26" type="cond" truecount="1" falsecount="0"/>
+        <line num="14" count="26" type="stmt"/>
+        <line num="16" count="26" type="stmt"/>
+        <line num="17" count="26" type="stmt"/>
+        <line num="19" count="26" type="stmt"/>
+        <line num="20" count="26" type="stmt"/>
         <line num="21" count="4" type="stmt"/>
         <line num="22" count="4" type="stmt"/>
-        <line num="25" count="20" type="stmt"/>
+        <line num="25" count="26" type="stmt"/>
       </file>
       <file name="input.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ui\input.tsx">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="68" type="stmt"/>
-        <line num="7" count="68" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-      </file>
-      <file name="label.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ui\label.tsx">
-        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="15" count="68" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="16" type="stmt"/>
+        <line num="7" count="16" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
       </file>
       <file name="loading-container.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ui\loading-container.tsx">
         <metrics statements="7" coveredstatements="7" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="18" count="9" type="cond" truecount="1" falsecount="1"/>
-        <line num="22" count="9" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="18" count="42" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="42" type="stmt"/>
       </file>
       <file name="skeleton.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\components\ui\skeleton.tsx">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="4" count="13" type="stmt"/>
-        <line num="5" count="13" type="stmt"/>
-        <line num="7" count="13" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="4" count="19" type="stmt"/>
+        <line num="5" count="19" type="stmt"/>
+        <line num="7" count="19" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="context">
+      <metrics statements="41" coveredstatements="26" conditionals="4" coveredconditionals="1" methods="11" coveredmethods="5"/>
+      <file name="AuthContext.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\context\AuthContext.tsx">
+        <metrics statements="41" coveredstatements="26" conditionals="4" coveredconditionals="1" methods="11" coveredmethods="5"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="10" count="49" type="stmt"/>
+        <line num="11" count="47" type="stmt"/>
+        <line num="13" count="49" type="stmt"/>
+        <line num="16" count="49" type="stmt"/>
+        <line num="17" count="49" type="stmt"/>
+        <line num="19" count="49" type="stmt"/>
+        <line num="20" count="35" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="26" count="35" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="34" count="35" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="40" count="35" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="45" count="35" type="stmt"/>
+        <line num="47" count="35" type="stmt"/>
+        <line num="48" count="35" type="stmt"/>
+        <line num="49" count="35" type="stmt"/>
+        <line num="50" count="35" type="stmt"/>
+        <line num="51" count="35" type="stmt"/>
+        <line num="55" count="49" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="60" count="49" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="65" count="49" type="stmt"/>
       </file>
     </package>
     <package name="hooks">
-      <metrics statements="73" coveredstatements="72" conditionals="17" coveredconditionals="15" methods="23" coveredmethods="23"/>
+      <metrics statements="105" coveredstatements="102" conditionals="16" coveredconditionals="15" methods="41" coveredmethods="39"/>
+      <file name="use-api-queries.ts" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\hooks\use-api-queries.ts">
+        <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="10"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="16" type="stmt"/>
+        <line num="7" count="9" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="16" type="stmt"/>
+        <line num="14" count="9" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="19" count="19" type="stmt"/>
+        <line num="21" count="8" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="27" count="35" type="stmt"/>
+        <line num="29" count="12" type="stmt"/>
+        <line num="34" count="4" type="stmt"/>
+        <line num="35" count="16" type="stmt"/>
+        <line num="37" count="7" type="stmt"/>
+      </file>
       <file name="use-auth.ts" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\hooks\use-auth.ts">
-        <metrics statements="7" coveredstatements="6" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="6" count="5" type="cond" truecount="0" falsecount="1"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
+        <metrics statements="22" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="7"/>
+        <line num="1" count="8" type="stmt"/>
+        <line num="2" count="8" type="stmt"/>
+        <line num="4" count="8" type="stmt"/>
+        <line num="5" count="18" type="stmt"/>
+        <line num="6" count="18" type="stmt"/>
+        <line num="8" count="18" type="stmt"/>
+        <line num="9" count="16" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="14" count="16" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="16" type="stmt"/>
+        <line num="22" count="16" type="stmt"/>
+        <line num="24" count="16" type="stmt"/>
+        <line num="25" count="16" type="stmt"/>
+        <line num="26" count="16" type="stmt"/>
+        <line num="27" count="16" type="stmt"/>
+        <line num="31" count="18" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
       </file>
       <file name="use-mobile.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\hooks\use-mobile.tsx">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
@@ -213,22 +291,22 @@
       </file>
       <file name="use-toast.ts" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\hooks\use-toast.ts">
         <metrics statements="54" coveredstatements="54" conditionals="16" coveredconditionals="15" methods="18" coveredmethods="18"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
         <line num="28" count="36" type="stmt"/>
         <line num="29" count="36" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
         <line num="59" count="28" type="cond" truecount="1" falsecount="0"/>
         <line num="60" count="9" type="stmt"/>
         <line num="63" count="19" type="stmt"/>
         <line num="64" count="6" type="stmt"/>
         <line num="65" count="6" type="stmt"/>
         <line num="71" count="19" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
+        <line num="74" count="2" type="stmt"/>
         <line num="75" count="75" type="cond" truecount="4" falsecount="0"/>
         <line num="77" count="37" type="stmt"/>
         <line num="83" count="2" type="stmt"/>
@@ -244,8 +322,8 @@
         <line num="117" count="1" type="stmt"/>
         <line num="122" count="7" type="stmt"/>
         <line num="124" count="8" type="stmt"/>
-        <line num="129" count="1" type="stmt"/>
-        <line num="131" count="1" type="stmt"/>
+        <line num="129" count="2" type="stmt"/>
+        <line num="131" count="2" type="stmt"/>
         <line num="134" count="69" type="stmt"/>
         <line num="135" count="69" type="stmt"/>
         <line num="136" count="89" type="stmt"/>
@@ -266,39 +344,39 @@
         <line num="179" count="92" type="stmt"/>
         <line num="184" count="92" type="stmt"/>
         <line num="187" count="25" type="stmt"/>
-        <line num="191" count="1" type="stmt"/>
+        <line num="191" count="2" type="stmt"/>
       </file>
     </package>
     <package name="lib">
       <metrics statements="29" coveredstatements="28" conditionals="9" coveredconditionals="8" methods="7" coveredmethods="7"/>
       <file name="constants.ts" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\lib\constants.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
       </file>
       <file name="utils.ts" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\lib\utils.ts">
         <metrics statements="27" coveredstatements="26" conditionals="9" coveredconditionals="8" methods="7" coveredmethods="7"/>
-        <line num="1" count="8" type="stmt"/>
-        <line num="2" count="8" type="stmt"/>
-        <line num="4" count="8" type="stmt"/>
-        <line num="5" count="749" type="stmt"/>
-        <line num="8" count="8" type="stmt"/>
+        <line num="1" count="11" type="stmt"/>
+        <line num="2" count="11" type="stmt"/>
+        <line num="4" count="11" type="stmt"/>
+        <line num="5" count="638" type="stmt"/>
+        <line num="8" count="11" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
         <line num="10" count="3" type="stmt"/>
         <line num="11" count="3" type="cond" truecount="1" falsecount="0"/>
         <line num="12" count="2" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
-        <line num="22" count="8" type="stmt"/>
+        <line num="22" count="11" type="stmt"/>
         <line num="27" count="4" type="cond" truecount="3" falsecount="0"/>
         <line num="30" count="2" type="stmt"/>
         <line num="31" count="2" type="stmt"/>
         <line num="34" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="36" count="2" type="stmt"/>
-        <line num="39" count="8" type="stmt"/>
+        <line num="39" count="11" type="stmt"/>
         <line num="40" count="9" type="cond" truecount="1" falsecount="0"/>
         <line num="43" count="6" type="stmt"/>
         <line num="44" count="6" type="stmt"/>
-        <line num="49" count="8" type="stmt"/>
+        <line num="49" count="11" type="stmt"/>
         <line num="53" count="3" type="stmt"/>
         <line num="55" count="3" type="stmt"/>
         <line num="56" count="7" type="cond" truecount="1" falsecount="0"/>
@@ -311,8 +389,8 @@
       <metrics statements="24" coveredstatements="7" conditionals="1" coveredconditionals="0" methods="12" coveredmethods="0"/>
       <file name="handlers.ts" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\mocks\handlers.ts">
         <metrics statements="19" coveredstatements="2" conditionals="1" coveredconditionals="0" methods="12" coveredmethods="0"/>
-        <line num="1" count="15" type="stmt"/>
-        <line num="8" count="15" type="stmt"/>
+        <line num="1" count="20" type="stmt"/>
+        <line num="8" count="20" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
@@ -333,18 +411,84 @@
       </file>
       <file name="importMetaMock.ts" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\mocks\importMetaMock.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="15" type="stmt"/>
-        <line num="13" count="15" type="stmt"/>
+        <line num="1" count="20" type="stmt"/>
+        <line num="13" count="20" type="stmt"/>
       </file>
       <file name="server.ts" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\mocks\server.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="15" type="stmt"/>
-        <line num="2" count="15" type="stmt"/>
-        <line num="4" count="15" type="stmt"/>
+        <line num="1" count="20" type="stmt"/>
+        <line num="2" count="20" type="stmt"/>
+        <line num="4" count="20" type="stmt"/>
       </file>
     </package>
     <package name="pages">
-      <metrics statements="66" coveredstatements="63" conditionals="8" coveredconditionals="7" methods="21" coveredmethods="20"/>
+      <metrics statements="188" coveredstatements="133" conditionals="155" coveredconditionals="73" methods="44" coveredmethods="21"/>
+      <file name="AlbumDetails.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\pages\AlbumDetails.tsx">
+        <metrics statements="33" coveredstatements="29" conditionals="31" coveredconditionals="28" methods="6" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="16" type="stmt"/>
+        <line num="16" count="16" type="stmt"/>
+        <line num="17" count="16" type="stmt"/>
+        <line num="20" count="16" type="stmt"/>
+        <line num="21" count="7" type="cond" truecount="1" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="31" count="16" type="stmt"/>
+        <line num="38" count="16" type="cond" truecount="8" falsecount="0"/>
+        <line num="45" count="16" type="stmt"/>
+        <line num="47" count="7" type="stmt"/>
+        <line num="51" count="16" type="cond" truecount="3" falsecount="0"/>
+        <line num="52" count="16" type="cond" truecount="3" falsecount="0"/>
+        <line num="54" count="16" type="cond" truecount="0" falsecount="1"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="59" count="16" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="125" count="6" type="stmt"/>
+        <line num="138" count="0" type="stmt"/>
+        <line num="157" count="1" type="stmt"/>
+      </file>
+      <file name="Home.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\pages\Home.tsx">
+        <metrics statements="27" coveredstatements="23" conditionals="28" coveredconditionals="19" methods="7" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="16" type="stmt"/>
+        <line num="13" count="16" type="stmt"/>
+        <line num="14" count="16" type="stmt"/>
+        <line num="20" count="16" type="stmt"/>
+        <line num="26" count="16" type="stmt"/>
+        <line num="28" count="16" type="stmt"/>
+        <line num="30" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="36" count="16" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="41" count="16" type="stmt"/>
+        <line num="43" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="48" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="16" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
+        <line num="130" count="1" type="stmt"/>
+      </file>
       <file name="Landing.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\pages\Landing.tsx">
         <metrics statements="16" coveredstatements="14" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
@@ -365,57 +509,125 @@
         <line num="141" count="1" type="stmt"/>
       </file>
       <file name="Login.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\pages\Login.tsx">
-        <metrics statements="50" coveredstatements="49" conditionals="7" coveredconditionals="6" methods="17" coveredmethods="17"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="10" type="stmt"/>
+        <line num="7" count="10" type="stmt"/>
+      </file>
+      <file name="PhotoDetails.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\pages\PhotoDetails.tsx">
+        <metrics statements="59" coveredstatements="20" conditionals="61" coveredconditionals="0" methods="14" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="34" type="stmt"/>
-        <line num="21" count="34" type="stmt"/>
-        <line num="22" count="34" type="stmt"/>
-        <line num="28" count="34" type="stmt"/>
-        <line num="29" count="34" type="stmt"/>
-        <line num="32" count="34" type="stmt"/>
-        <line num="33" count="10" type="cond" truecount="0" falsecount="1"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="38" count="34" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
-        <line num="40" count="3" type="stmt"/>
-        <line num="41" count="3" type="stmt"/>
-        <line num="42" count="3" type="stmt"/>
-        <line num="43" count="2" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="48" count="3" type="stmt"/>
-        <line num="52" count="34" type="stmt"/>
-        <line num="53" count="3" type="stmt"/>
-        <line num="54" count="3" type="stmt"/>
-        <line num="55" count="3" type="stmt"/>
-        <line num="56" count="2" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="61" count="3" type="stmt"/>
-        <line num="65" count="34" type="stmt"/>
-        <line num="66" count="2" type="stmt"/>
-        <line num="67" count="2" type="stmt"/>
-        <line num="68" count="2" type="stmt"/>
-        <line num="69" count="1" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
-        <line num="72" count="1" type="stmt"/>
-        <line num="74" count="2" type="stmt"/>
-        <line num="78" count="93" type="stmt"/>
-        <line num="80" count="34" type="stmt"/>
-        <line num="102" count="5" type="stmt"/>
-        <line num="114" count="3" type="stmt"/>
-        <line num="176" count="1" type="stmt"/>
+        <line num="17" count="25" type="stmt"/>
+        <line num="18" count="24" type="stmt"/>
+        <line num="19" count="24" type="stmt"/>
+        <line num="20" count="24" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="58" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="90" count="0" type="cond" truecount="0" falsecount="8"/>
+        <line num="97" count="0" type="cond" truecount="0" falsecount="8"/>
+        <line num="99" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="100" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="108" count="0" type="cond" truecount="0" falsecount="8"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="112" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="114" count="0" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="162" count="0" type="stmt"/>
+        <line num="192" count="0" type="stmt"/>
+        <line num="242" count="0" type="stmt"/>
+        <line num="261" count="1" type="stmt"/>
+      </file>
+      <file name="UserDetails.tsx" path="C:\Users\Ricky\Desktop\For Fun Projects\Lovableproject\healthy-photo-hub\src\pages\UserDetails.tsx">
+        <metrics statements="48" coveredstatements="42" conditionals="34" coveredconditionals="25" methods="12" coveredmethods="10"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="19" type="stmt"/>
+        <line num="17" count="19" type="stmt"/>
+        <line num="18" count="19" type="stmt"/>
+        <line num="20" count="19" type="stmt"/>
+        <line num="21" count="8" type="cond" truecount="1" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="31" count="19" type="stmt"/>
+        <line num="38" count="19" type="stmt"/>
+        <line num="45" count="19" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="48" count="5" type="stmt"/>
+        <line num="49" count="5" type="stmt"/>
+        <line num="50" count="10" type="stmt"/>
+        <line num="51" count="10" type="stmt"/>
+        <line num="52" count="10" type="stmt"/>
+        <line num="53" count="10" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="63" count="5" type="stmt"/>
+        <line num="68" count="19" type="cond" truecount="3" falsecount="0"/>
+        <line num="69" count="19" type="cond" truecount="3" falsecount="0"/>
+        <line num="72" count="19" type="stmt"/>
+        <line num="73" count="8" type="cond" truecount="4" falsecount="2"/>
+        <line num="77" count="19" type="stmt"/>
+        <line num="78" count="5" type="stmt"/>
+        <line num="80" count="10" type="stmt"/>
+        <line num="86" count="19" type="cond" truecount="0" falsecount="1"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="91" count="19" type="stmt"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="215" count="8" type="stmt"/>
+        <line num="232" count="0" type="stmt"/>
+        <line num="251" count="1" type="stmt"/>
       </file>
     </package>
     <package name="services">

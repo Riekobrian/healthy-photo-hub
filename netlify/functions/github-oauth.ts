@@ -37,11 +37,9 @@ const handler: Handler = async (event) => {
     }
 
     // Use NETLIFY_ prefixed environment variables for Netlify Functions
-    const clientId =
-      process.env.NETLIFY_GITHUB_CLIENT_ID || process.env.VITE_GITHUB_CLIENT_ID;
-    const clientSecret =
-      process.env.NETLIFY_GITHUB_CLIENT_SECRET ||
-      process.env.VITE_GITHUB_CLIENT_SECRET;
+    const clientId = process.env.NETLIFY_GITHUB_CLIENT_ID;
+    const clientSecret = process.env.NETLIFY_GITHUB_CLIENT_SECRET;
+    const defaultRedirectUri = process.env.NETLIFY_REDIRECT_URI;
 
     if (!clientId || !clientSecret) {
       console.error("Missing GitHub OAuth credentials");
@@ -64,8 +62,7 @@ const handler: Handler = async (event) => {
           client_id: clientId,
           client_secret: clientSecret,
           code,
-          redirect_uri:
-            "https://nimble-blini-d1c847.netlify.app/.netlify/identity/callback",
+          redirect_uri: redirect_uri || defaultRedirectUri,
         }),
       }
     );

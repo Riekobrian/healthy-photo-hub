@@ -28,9 +28,9 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-        }
-      }
+          vendor: ["react", "react-dom", "react-router-dom"],
+        },
+      },
     },
     minify: false, // Disable minification
     // terserOptions: { // Comment out or remove terser options
@@ -40,5 +40,5 @@ export default defineConfig(({ mode }) => ({
     // },
   },
   // Only include environment variables starting with VITE_
-  envPrefix: 'VITE_'
+  envPrefix: "VITE_",
 }));

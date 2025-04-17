@@ -3,5 +3,5 @@ export const testEnv = {
   MODE: "test",
   DEV: true,
   PROD: false,
-  SSR: false
+  SSR: false,
 };
