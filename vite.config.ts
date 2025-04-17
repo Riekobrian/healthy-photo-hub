@@ -24,22 +24,20 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    sourcemap: true,
+    sourcemap: false, // Disable sourcemaps
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          auth: ['netlify-identity-widget']
         }
       }
     },
-    // Remove console.logs in production
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-      },
-    },
+    minify: false, // Disable minification
+    // terserOptions: { // Comment out or remove terser options
+    //   compress: {
+    //     drop_console: true,
+    //   },
+    // },
   },
   // Only include environment variables starting with VITE_
   envPrefix: 'VITE_'
