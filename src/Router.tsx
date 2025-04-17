@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "@/pages/Home";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
@@ -14,8 +14,16 @@ export const Router = () => {
 
   return (
     <Routes>
-      <Route path="/" element={isAuthenticated ? <Home /> : <Landing />} />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/"
+        element={
+          isAuthenticated ? <Navigate to="/home" replace /> : <Landing />
+        }
+      />
+      <Route
+        path="/login"
+        element={isAuthenticated ? <Navigate to="/home" replace /> : <Login />}
+      />
       <Route
         path="/home"
         element={

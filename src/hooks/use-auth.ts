@@ -14,20 +14,12 @@ export function useAuth() {
     netlifyIdentity.on("login", (user) => {
       setUser(user);
       netlifyIdentity.close();
-      // Use setTimeout to ensure state is cleaned up before redirect
-      setTimeout(() => {
-        window.location.href = "/home";
-      }, 300);
     });
 
     netlifyIdentity.on("logout", () => {
       setUser(null);
       // Clear any stored authentication state
       localStorage.removeItem("gotrue.user");
-      // Use setTimeout to ensure state is cleaned up before allowing new login
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 300);
     });
 
     netlifyIdentity.init();

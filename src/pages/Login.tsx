@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useAuth } from "../hooks/use-auth";
 import { Navigate } from "react-router-dom";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
@@ -6,7 +6,6 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 export default function Login() {
   const { login, isAuthenticated, isInitializing } = useAuth();
 
-  // If already authenticated, redirect to home
   if (isInitializing) {
     return <LoadingSpinner />;
   }
@@ -28,7 +27,7 @@ export default function Login() {
             onClick={login}
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Sign in with Google
+            Sign in with Netlify Identity
           </button>
         </div>
       </div>
