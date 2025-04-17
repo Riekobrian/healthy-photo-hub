@@ -10,7 +10,7 @@ import { useUsers, useAlbums } from "@/hooks/use-api-queries";
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -54,7 +54,12 @@ const Home = () => {
 
       <main className="flex-grow container-custom py-8">
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h1 className="text-2xl font-bold mb-2">Welcome to HealthyCare</h1>
+          <h1 className="text-2xl font-bold mb-2">
+            Welcome
+            {user?.user_metadata?.full_name
+              ? `, ${user.user_metadata.full_name}`
+              : ""}
+          </h1>
           <p className="text-gray-600">
             Browse through our users and explore their health albums.
           </p>

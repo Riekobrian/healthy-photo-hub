@@ -6,7 +6,6 @@ import UserDetails from "@/pages/UserDetails";
 import AlbumDetails from "@/pages/AlbumDetails";
 import PhotoDetails from "@/pages/PhotoDetails";
 import NotFound from "@/pages/NotFound";
-import CallbackHandler from "@/pages/CallbackHandler";
 import { useAuth } from "@/hooks/use-auth";
 
 export const Router = () => {
@@ -20,7 +19,6 @@ export const Router = () => {
       <Route path="/users/:userId" element={<UserDetails />} />
       <Route path="/albums/:albumId" element={<AlbumDetails />} />
       <Route path="/photos/:photoId" element={<PhotoDetails />} />
-      <Route path="/callback" element={<CallbackHandler />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -1,11 +1,15 @@
 import { createContext } from "react";
 
 export interface User {
-  id: number;
-  name: string;
+  id: string;
+  user_metadata: {
+    full_name?: string;
+    avatar_url?: string;
+  };
   email: string;
-  provider?: "email" | "google" | "github";
-  picture?: string;
+  app_metadata: {
+    provider?: string;
+  };
 }
 
 export type AuthStatus =
@@ -24,11 +28,10 @@ export interface AuthContextType extends AuthState {
   isAuthenticated: boolean;
   isInitializing: boolean;
   authError: Error | null;
-  login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: () => Promise<void>;
-  loginWithGithub: () => Promise<void>;
+  login: () => void;
+  loginWithGoogle: () => void;
+  loginWithGithub: () => void;
   logout: () => Promise<void>;
-  handleOAuthCallback: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
