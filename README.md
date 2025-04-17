@@ -2,16 +2,114 @@
 
 ## Project Overview
 
-A React-based photo management application built with TypeScript, Vite, and modern web technologies.
+Healthy Photo Hub is a comprehensive React-based healthcare photo management system that allows users to securely store, organize and manage medical images and health-related documents. Built with modern web technologies, it provides a robust platform for healthcare professionals and patients to maintain digital health records with an intuitive user interface.
 
-## Technologies
+## Key Features
 
-- Vite + React
-- TypeScript
-- Tailwind CSS
-- shadcn/ui
-- Jest + Testing Library
-- MSW (Mock Service Worker)
+### User Management
+
+- Secure authentication using Netlify Identity
+- OAuth integration with Google and GitHub
+- User profiles with detailed information (name, email, phone, location)
+- Company and professional details display
+- Profile avatar with fallback to user initials
+
+### Album Management
+
+- Create and view health record albums
+- Organize photos by categories or medical events
+- Album previews with photo counts
+- User-specific album collections
+- Responsive grid layout for album browsing
+
+### Photo Management
+
+- High-quality medical image storage
+- Thumbnail generation for quick previews
+- Photo title editing capabilities
+- Image metadata management
+- Full-screen photo viewing
+- Efficient photo navigation within albums
+
+### Search and Navigation
+
+- Real-time user search functionality
+- Filter users by name, email, or username
+- Breadcrumb navigation for easy browsing
+- Quick access to recent items
+- Responsive mobile-friendly interface
+
+### User Interface
+
+- Modern, clean design using Tailwind CSS
+- Responsive layout for all screen sizes
+- Loading states with skeleton placeholders
+- Toast notifications for user feedback
+- Error boundaries for graceful error handling
+- Dark mode support (via next-themes)
+
+### Security
+
+- Protected routes for authenticated users
+- Secure OAuth implementations
+- Environment variable protection
+- XSS protection headers
+- Strict content security policy
+
+### Error Handling
+
+- Comprehensive error logging system
+- Multiple severity levels (INFO, WARNING, ERROR, CRITICAL)
+- Detailed error context capture
+- User-friendly error messages
+- Automatic error recovery
+- Last 100 errors retention
+
+### Performance
+
+- Lazy loading of images
+- Code splitting and dynamic imports
+- Optimized bundle size
+- Caching strategies
+- Efficient data fetching with React Query
+
+### Technical Features
+
+- TypeScript for type safety
+- React Query for efficient data fetching
+- Component-based architecture
+- Custom hooks for business logic
+- Comprehensive test coverage
+- MSW for API mocking
+- Vite for fast development
+- Jest and Testing Library for testing
+
+## API Integration
+
+The application integrates with a RESTful API providing:
+
+- User management endpoints
+- Album CRUD operations
+- Photo management endpoints
+- Search and filtering capabilities
+
+## Tools and Utilities
+
+### Development Tools
+
+- Vite dev server with HMR
+- TypeScript compilation
+- ESLint for code quality
+- Prettier for code formatting
+- Jest for testing
+- MSW for API mocking
+
+### Monitoring and Debugging
+
+- Error logging service
+- Performance monitoring
+- Development debugging tools
+- Test coverage reports
 
 ## Prerequisites
 
@@ -111,14 +209,14 @@ npm run preview
 #### Netlify (Recommended)
 
 1. Push your changes to your repository
-2. Open [Netlify](https://lovable.dev/projects/839b1640-94c9-4990-a115-94799dc449c5)
+2. Open [Netlify](https://savannahinformatics.netlify.app)
 3. Click Share -> Publish
 
 #### Custom Domain Setup
 
 1. Navigate to Project > Settings > Domains
 2. Click Connect Domain
-3. Follow the [custom domain setup guide](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+3. Follow the [custom domain setup guide]
 
 ## Environment Variables
 
